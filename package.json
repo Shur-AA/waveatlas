@@ -1,0 +1,24 @@
+{
+  "name": "atlas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colorbrewer": "^1.3.0",
+    "dbgeo": "^1.1.0",
+    "jquery": "^3.4.1",
+    "ol": "^6.1.0",
+    "pg": "^7.12.1",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
