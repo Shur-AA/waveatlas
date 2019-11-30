@@ -119,18 +119,36 @@
     position: absolute;
     right: 0;
     top: 50px;
+    
 }
 
 .table_place {
     position: absolute;
     right: 10%;
+    height: auto;
     top: 20%;
-    width: 500px;
+    min-width: 460px;
     background-color: white;
     overflow: visible;
     border: solid 1px whitesmoke;
     padding: 5px;
     visibility: hidden;
+}
+
+.responce_table {
+    height: 0;
+    visibility: hidden;
+}
+
+.tablehead{
+    text-align: left!important;
+    font-size: 12px!important;
+    font-weight: 600!important;
+}
+
+.rowhead{
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .dates {

@@ -17,7 +17,6 @@
     <!-- <script src="./js/appearence/appearence.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="css/foopicker.css">
-    <script src="js/appearence/foopicker.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- <script src="./js/components/roserender.js"></script> -->
     <!-- <script src="./js/components/gistrender.js"></script> -->
@@ -55,7 +54,7 @@
                 <div class="legendplace"></div>
             </header>
 
-            <input type="text" id="startt" value="28-Jun-2019" class="uk-button uk-button-default"/>
+            
             <section id="map"></section>
             <section class="addinfo">
                 <div class="graphics">
@@ -128,12 +127,13 @@
                     <button id="timedatabut" class="uk-button uk-button-default">Многовременные данные</button>
                 </article>
             </section>
-            <section class="timedata_form">
-                <article class="table_place">
+            <section class="table_place">
+            
+                <div class="datetime_manager">
                     <form action="#" id="dataform">
                         <div class="dates">
                             <label for="start">Start date:</label>
-                            <input name="startdate" class="uk-input uk-form-width-small" id="start" name="trip-start"
+                            <input id="start" type="text" name="startdate" class="uk-input uk-form-width-small" autocomplete="off"
                                 placeholder="01.01.1980" min="1980-01-01" max="2016-12-31" minlength="10" maxlength="10">
                             and time:
                             <select name="starttime" class="uk-select uk-form-width-small">
@@ -150,74 +150,84 @@
             
                         <div class="dates">
                             <label for="finish">End date: </label>
-                            <input name="enddate" style="margin-left:6px;" class="uk-input uk-form-width-small" id="finish"
-                                name="trip-start" placeholder="31.12.2016" minlength="10" maxlength="10">
+                            <input id="finish" name="enddate" style="margin-left:6px;" class="uk-input uk-form-width-small"
+                                placeholder="31.12.2016" minlength="10" maxlength="10" autocomplete="off">
                             and time:
                             <select name="endtime" class="uk-select uk-form-width-small">
-                                    <option value="0">00:00</option>
-                                    <option value="3">03:00</option>
-                                    <option value="6">06:00</option>
-                                    <option value="9">09:00</option>
-                                    <option value="12">12:00</option>
-                                    <option value="15">15:00</option>
-                                    <option value="18">18:00</option>
-                                    <option value="21">21:00</option>
+                                <option value="0">00:00</option>
+                                <option value="3">03:00</option>
+                                <option value="6">06:00</option>
+                                <option value="9">09:00</option>
+                                <option value="12">12:00</option>
+                                <option value="15">15:00</option>
+                                <option value="18">18:00</option>
+                                <option value="21">21:00</option>
                             </select>
                         </div>
                     </form>
-                    <div class="dates">
+                    <div class="dates" id="culchide">
                         <button id="calcbut" class="uk-button uk-button-primary uk-button-small">calculate</button>
                     </div>
-                    <div class="uk-divider-icon"></div>
-                    <!-- <progress id="js-progressbar" class="uk-progress" value="10" max="100"></progress> -->
-                    <div class="responce_table">
-                        <table class="uk-table uk-table-divider">
-                            <thead>
-                                <tr>
-                                    <th>Parameter</th>
-                                    <th>Hsig</th>
-                                    <th>Period</th>
-                                    <th>Energy</th>
-                                    <th>Wlen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>avg</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>min</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>max</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>med</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
             
-                </article>
+                <div class="dates" id="timeshow">
+                        <button id="timeshowbut" class="uk-button uk-button-default uk-button-small uk-width-1-1">2016-11-09 06:00:00 - 2016-07-16 18:00:00</button>
+                </div>
+
+                <div class="uk-divider-icon"></div>
+                <div class="responce_table">
+                    <table class="uk-table uk-table-divider">
+                        <thead>
+                            <tr>
+                                <th class="tablehead">Parameter</th>
+                                <th class="tablehead">Hsig</th>
+                                <th class="tablehead">Period</th>
+                                <th class="tablehead">Energy</th>
+                                <th class="tablehead">Wlen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="rowhead">среднее</td>
+                                <td id="avg_hsig"></td>
+                                <td id="avg_period"></td>
+                                <td id="avg_energy"></td>
+                                <td id="avg_wlen"></td>
+                            </tr>
+                            <tr>
+                                <td class="rowhead">min</td>
+                                <td id="min_hsig"></td>
+                                <td id="min_period"></td>
+                                <td id="min_energy"></td>
+                                <td id="min_wlen"></td>
+                            </tr>
+                            <tr>
+                                <td class="rowhead">max</td>
+                                <td id="max_hsig"></td>
+                                <td id="max_period"></td>
+                                <td id="max_energy"></td>
+                                <td id="max_wlen"></td>
+                            </tr>
+                            <tr>
+                                <td class="rowhead">med</td>
+                                <td id="med_hsig"></td>
+                                <td id="med_period"></td>
+                                <td id="med_energy"></td>
+                                <td id="med_wlen"></td>
+                            </tr>
+                            <tr>
+                                <td class="rowhead">std</td>
+                                <td id="std_hsig"></td>
+                                <td id="std_period"></td>
+                                <td id="std_energy"></td>
+                                <td id="std_wlen"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
-        </div>
-    </div>
+            </div>
+            </div>
 
     
     <script src="./js/index.js"></script>
@@ -240,12 +250,6 @@
             });
         
     </script> -->
-    <script>
-        var foopicker = new FooPicker({
-            id: 'startt'
-        });
-
-    </script>
 </body>
 
 </html>

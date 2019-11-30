@@ -10,7 +10,7 @@ import Overlay from 'ol/Overlay.js';
 import Select from 'ol/interaction/Select.js'
 import click from 'ol/events/condition.js'
 import Graticule from 'ol/layer/Graticule';
-import $ from 'jquery'
+import $ from 'jquery';
 import {Fill, Stroke, Icon, Style, Text, Circle} from 'ol/style';
 import {toStringHDMS} from 'ol/coordinate';
 import {fromLonLat, toLonLat} from 'ol/proj';
@@ -24,6 +24,7 @@ const colorbrewer = require('colorbrewer');
 const convert = require('color-convert');
 var render_rose = require('./components/roserender');
 var render_hist = require('./components/gistrender');
+var FooPicker = require('./appearence/foopicker.js');
 
 var epsg = 4326;
 
@@ -120,61 +121,77 @@ map.on('singleclick', function(evt) {
   }
 });
 
-// document.querySelector('#start').datepicker();
+// $("#culchide").on('click', e => {
+//   let elem = $(e.currentTarget).prev();
+//   elem.slideToggle(function(){
+//     $("#calcbut").style.visibility = hidden;
+//   });
+// })
 
 var timedata = document.getElementById("timedatabut");
 timedata.addEventListener('click', function (event) {
   document.querySelector('.table_place').style.visibility = 'visible';
+  var foopicker_start = new FooPicker({
+    id: 'start',
+    dateFormat: 'dd.MM.yyyy'
+  });
+  var foopicker_end = new FooPicker({
+    id: 'finish',
+    dateFormat: 'dd.MM.yyyy'
+  });
   const dataform = document.querySelector('#dataform');
   const databut = document.querySelector('#calcbut');
   databut.addEventListener('click', function (event) {
     event.preventDefault();
-    var startyear = dataform.elements.startdate.value.slice(6, 10);
-    var endyear = dataform.elements.enddate.value.slice(6, 10);
-    var startmon = parseInt(dataform.elements.startdate.value.slice(3, 5));
-    var endmon = parseInt(dataform.elements.enddate.value.slice(3, 5));
-    var startday = parseInt(dataform.elements.startdate.value.slice(0, 2));
-    var endday = parseInt(dataform.elements.enddate.value.slice(0, 2));
+    var startdate = dataform.elements.startdate.value;
+    var enddate = dataform.elements.enddate.value;
+    var starthour = dataform.elements.startdate.value;
     var starthour = dataform.elements.starttime.value;
     var endhour = dataform.elements.endtime.value;
-    console.log(startyear, startmon, startday, starthour, endyear, endmon, endday, endhour);
+    console.log(startdate, starthour, enddate, endhour);
+    var myjson = {"startdate": startdate,
+                  "starthour": starthour,
+                  "enddate": enddate,
+                  "endhour": endhour};
+
+    let elem = $(event.currentTarget).parent().parent();
+    elem.slideUp(600);
+            
     var url = "http://127.0.0.1:3000/"
     if (url) {
       $.ajax({
         url: url,
         type: "POST",
-        data : {
-          query : 'SELECT * FROM public.testdata1 where "Index" = 4 LIMIT 6',
-        },
+        data : JSON.stringify(myjson),
         success : function(data) {
           console.log(data);
+          document.querySelector('.responce_table').style.height = 'auto';
+          document.querySelector('.responce_table').style.visibility = 'visible';
+          document.getElementById("avg_hsig").innerHTML = data[0].avg_hsig;
+          document.getElementById("avg_period").innerHTML = data[0].avg_period;
+          document.getElementById("avg_energy").innerHTML = data[0].avg_energy;
+          document.getElementById("avg_wlen").innerHTML = data[0].avg_wlen;
+          document.getElementById("min_hsig").innerHTML = data[0].min_hsig;
+          document.getElementById("min_period").innerHTML = data[0].min_period;
+          document.getElementById("min_energy").innerHTML = data[0].min_energy;
+          document.getElementById("min_wlen").innerHTML = data[0].min_wlen;
+          document.getElementById("max_hsig").innerHTML = data[0].max_hsig;
+          document.getElementById("max_period").innerHTML = data[0].max_period;
+          document.getElementById("max_energy").innerHTML = data[0].max_energy;
+          document.getElementById("max_wlen").innerHTML = data[0].max_wlen;
+          document.getElementById("med_hsig").innerHTML = data[0].med_hsig;
+          document.getElementById("med_period").innerHTML = data[0].med_period;
+          document.getElementById("med_energy").innerHTML = data[0].med_energy;
+          document.getElementById("med_wlen").innerHTML = data[0].med_wlen;
+          document.getElementById("std_hsig").innerHTML = data[0].std_hsig;
+          document.getElementById("std_period").innerHTML = data[0].std_period;
+          document.getElementById("std_energy").innerHTML = data[0].std_energy;
+          document.getElementById("std_wlen").innerHTML = data[0].std_wlen;
         }
       })
     }
   })
 })
-
-map.on('click', function(evt) {
-  var url = "http://127.0.0.1:3000/"
-  if (url) {
-    $.ajax({
-      url: url,
-      type: "POST",
-      data : {
-        query : 'SELECT * FROM public.testdata1 where "Index" = 1 LIMIT 6',
-      },
-      success : function(data) {
-        console.log(data);
-      }
-    })
-  }
-});
-
-
-
-
-
-
 
 function ready(){
   function drawMapName(intext){
