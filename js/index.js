@@ -141,6 +141,7 @@ timedata.addEventListener('click', function (event) {
   });
   const dataform = document.querySelector('#dataform');
   const databut = document.querySelector('#calcbut');
+
   databut.addEventListener('click', function (event) {
     event.preventDefault();
     var startdate = dataform.elements.startdate.value;
@@ -152,10 +153,16 @@ timedata.addEventListener('click', function (event) {
     var myjson = {"startdate": startdate,
                   "starthour": starthour,
                   "enddate": enddate,
-                  "endhour": endhour};
+                  "endhour": endhour,
+                  "type": "maintbl"};
 
     let elem = $(event.currentTarget).parent().parent();
-    elem.slideUp(600);
+    elem.slideUp(600, function(){
+      document.querySelector('#timeshowbut').style.height = 'auto';
+      document.querySelector('#timeshowbut').style.visibility = 'visible';
+      document.querySelector('#timeshowbut').innerText = startdate + ' ' + starthour + ':00 h  —  ' + enddate + ' ' + endhour + ':00 h';
+    });
+   
             
     var url = "http://127.0.0.1:3000/"
     if (url) {
@@ -187,11 +194,47 @@ timedata.addEventListener('click', function (event) {
           document.getElementById("std_period").innerHTML = data[0].std_period;
           document.getElementById("std_energy").innerHTML = data[0].std_energy;
           document.getElementById("std_wlen").innerHTML = data[0].std_wlen;
+          document.getElementById("period_input").value = data[0].med_period;
+          document.getElementById("energy_input").value = data[0].med_energy;
+          document.getElementById("len_input").value = data[0].med_wlen;
+          document.getElementById("hsig_input").value = data[0].med_hsig;
+
+
+          var myjson2 = {"period": data[0].med_period,
+                        "energy": data[0].med_energy,
+                        "wlen": data[0].med_wlen,
+                        "hsig": data[0].med_hsig,
+                        "type": "supall"};
+
+          $.ajax({
+            url: url,
+            type: "POST",
+            data : JSON.stringify(myjson2),
+            success : function(data) {
+              console.log(data);
+              document.getElementById("periodsup_value").innerHTML = data[0].supper + ' %';
+              document.getElementById("energysup_value").innerHTML = data[0].supenerg + ' %';
+              document.getElementById("lensup_value").innerHTML = data[0].supwlen + ' %';
+              document.getElementById("hsigsup_value").innerHTML = data[0].suphsig + ' %';
+            }
+          })
+
+
         }
       })
     }
+
+    $("#timeshowbut").on('click', e => {
+      let elem = $(".datetime_manager");
+      elem.slideDown(function () {
+        document.querySelector('#timeshowbut').style.height = '0';
+        document.querySelector('#timeshowbut').style.visibility = 'hidden';
+      });
+    })
   })
 })
+
+
 
 function ready(){
   function drawMapName(intext){

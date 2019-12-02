@@ -126,7 +126,7 @@
     position: absolute;
     right: 10%;
     height: auto;
-    top: 20%;
+    top: 14%;
     min-width: 460px;
     background-color: white;
     overflow: visible;
@@ -156,6 +156,18 @@
     justify-content: space-evenly;
     align-items: center;
     margin-top: 5px;
+}
+
+.supply_title{
+    color: #999;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#timeshowbut{
+    height: 0;
+    visibility: hidden;
 }
 
 #calcbut{
