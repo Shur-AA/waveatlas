@@ -19,8 +19,15 @@ function fillQtable(start, finish, ind){
   return request;
 }
 
-function fillSupply(field, operator, val){
-  let request = 'select part, total, round(cast(cast(part as float)*100/cast(total as float) as numeric), 1) as supply from(select count("Period") as part, (select count("Period") from testdata1) as total from testdata1 where "Period" > 1) as temporal'
+function fillSupplyRow(field, operator, val, ind){
+  switch(operator){
+    case 'less': operator = '<';
+    break;
+    case 'greater': operator = '>';
+    break;
+    default: operator = '>';
+  }
+  let request = 'select round(cast(cast(part as float)*100/cast(total as float) as numeric), 1) as supply from(select count("'+ field +'") as part,(select count("'+ field +'") from chdata where "Index" = '+ ind +') as total from chdata where "'+ field +'" '+ operator + val +' and "Index" = '+ ind +') as temporal;'
   console.log('Query string from function: ' + request);
   return request;
 }
@@ -46,6 +53,18 @@ const server = http.createServer((req, res) => {
               break;
           case 'supall':
               var query = fillFullSupply(data.period, data.energy, data.wlen, data.hsig, 2000);
+              break;
+          case 'supperiod':
+              var query = fillSupplyRow('Period', data.operator, data.period_in, 2000);
+              break;
+          case 'supenergy':
+              var query = fillSupplyRow('Energy', data.operator, data.energy_in, 2000);
+              break;
+          case 'suplen':
+              var query = fillSupplyRow('Wlen', data.operator, data.wlen_in, 2000);
+              break;
+          case 'supsig':
+              var query = fillSupplyRow('Hsig', data.operator, data.hsig_in, 2000);
               break;
         }
         

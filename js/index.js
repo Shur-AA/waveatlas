@@ -199,13 +199,11 @@ timedata.addEventListener('click', function (event) {
           document.getElementById("len_input").value = data[0].med_wlen;
           document.getElementById("hsig_input").value = data[0].med_hsig;
 
-
           var myjson2 = {"period": data[0].med_period,
                         "energy": data[0].med_energy,
                         "wlen": data[0].med_wlen,
                         "hsig": data[0].med_hsig,
                         "type": "supall"};
-
           $.ajax({
             url: url,
             type: "POST",
@@ -216,14 +214,13 @@ timedata.addEventListener('click', function (event) {
               document.getElementById("energysup_value").innerHTML = data[0].supenerg + ' %';
               document.getElementById("lensup_value").innerHTML = data[0].supwlen + ' %';
               document.getElementById("hsigsup_value").innerHTML = data[0].suphsig + ' %';
+              document.querySelector('.supply_table').style.height = 'auto';
+              document.querySelector('.supply_table').style.visibility = 'visible';
             }
           })
-
-
         }
       })
     }
-
     $("#timeshowbut").on('click', e => {
       let elem = $(".datetime_manager");
       elem.slideDown(function () {
@@ -234,7 +231,132 @@ timedata.addEventListener('click', function (event) {
   })
 })
 
+// ********************SUPPLY TABLE CHANGE******************
 
+$("#period_input").on('change', e => {
+  var changejson = {"period_in": $("#period_input")[0].value,
+                  "operator": $("#greater_less1")[0].value,
+                  "type": "supperiod"};
+  var url = "http://127.0.0.1:3000/";
+  $.ajax({
+    url: url,
+    type: "POST",
+    data : JSON.stringify(changejson),
+    success : function(data) {
+      document.getElementById("periodsup_value").innerHTML = data[0].supply + ' %';
+    }
+  })
+  });
+
+  $("#greater_less1").on('change', e => {
+    var changejson = {"period_in": $("#period_input")[0].value,
+                    "operator": $("#greater_less1")[0].value,
+                    "type": "supperiod"};
+    var url = "http://127.0.0.1:3000/";
+    $.ajax({
+      url: url,
+      type: "POST",
+      data : JSON.stringify(changejson),
+      success : function(data) {
+        document.getElementById("periodsup_value").innerHTML = data[0].supply + ' %';
+      }
+    })
+    });
+
+    $("#energy_input").on('change', e => {
+      var changejson = {"energy_in": $("#energy_input")[0].value,
+                      "operator": $("#greater_less2")[0].value,
+                      "type": "supenergy"};
+      var url = "http://127.0.0.1:3000/";
+      $.ajax({
+        url: url,
+        type: "POST",
+        data : JSON.stringify(changejson),
+        success : function(data) {
+          document.getElementById("energysup_value").innerHTML = data[0].supply + ' %';
+        }
+      })
+      });
+
+    $("#greater_less2").on('change', e => {
+      var changejson = {"energy_in": $("#energy_input")[0].value,
+                      "operator": $("#greater_less2")[0].value,
+                      "type": "supenergy"};
+      var url = "http://127.0.0.1:3000/";
+      $.ajax({
+        url: url,
+        type: "POST",
+        data : JSON.stringify(changejson),
+        success : function(data) {
+          document.getElementById("energysup_value").innerHTML = data[0].supply + ' %';
+        }
+      })
+      });
+
+      $("#len_input").on('change', e => {
+        var changejson = {"wlen_in": $("#len_input")[0].value,
+                        "operator": $("#greater_less3")[0].value,
+                        "type": "suplen"};
+        var url = "http://127.0.0.1:3000/";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data : JSON.stringify(changejson),
+          success : function(data) {
+            document.getElementById("lensup_value").innerHTML = data[0].supply + ' %';
+          }
+        })
+        });
+
+        $("#greater_less3").on('change', e => {
+          var changejson = {"wlen_in": $("#len_input")[0].value,
+                          "operator": $("#greater_less3")[0].value,
+                          "type": "suplen"};
+          var url = "http://127.0.0.1:3000/";
+          $.ajax({
+            url: url,
+            type: "POST",
+            data : JSON.stringify(changejson),
+            success : function(data) {
+              document.getElementById("lensup_value").innerHTML = data[0].supply + ' %';
+            }
+          })
+          });
+
+          $("#hsig_input").on('change', e => {
+            var changejson = {"hsig_in": $("#hsig_input")[0].value,
+                            "operator": $("#greater_less4")[0].value,
+                            "type": "supsig"};
+            var url = "http://127.0.0.1:3000/";
+            $.ajax({
+              url: url,
+              type: "POST",
+              data : JSON.stringify(changejson),
+              success : function(data) {
+                document.getElementById("hsigsup_value").innerHTML = data[0].supply + ' %';
+              }
+            })
+            });
+
+
+            $("#greater_less4").on('change', e => {
+              var changejson = {"hsig_in": $("#hsig_input")[0].value,
+                              "operator": $("#greater_less4")[0].value,
+                              "type": "supsig"};
+              var url = "http://127.0.0.1:3000/";
+              $.ajax({
+                url: url,
+                type: "POST",
+                data : JSON.stringify(changejson),
+                success : function(data) {
+                  document.getElementById("hsigsup_value").innerHTML = data[0].supply + ' %';
+                }
+              })
+              });
+
+
+
+// ********************SUPPLY TABLE CHANGE END************************
 
 function ready(){
   function drawMapName(intext){
