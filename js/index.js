@@ -28,6 +28,16 @@ var FooPicker = require('./appearence/foopicker.js');
 
 var epsg = 4326;
 
+function insert_legend(palette, from, to, by, id = 'td00') {
+  document.getElementById("legendplace").innerHTML = "";
+  console.log(document.getElementById("legendplace"));
+  tools.layeredColoring(0, 0,
+              fun.get_colors(palette, from, to, by),
+              false, [30, 15], false,
+              fun.get_values(from, to, by), "8pt Arial", "black", 30, 20,
+              false, "", "bold 10pt Arial");
+}
+// insert_legend(colorbrewer.PuRd, 0, 24, 2);
 
 var center = [60, 60]
 var prj = new Projection({
@@ -121,12 +131,6 @@ map.on('singleclick', function(evt) {
   }
 });
 
-// $("#culchide").on('click', e => {
-//   let elem = $(e.currentTarget).prev();
-//   elem.slideToggle(function(){
-//     $("#calcbut").style.visibility = hidden;
-//   });
-// })
 
 var timedata = document.getElementById("timedatabut");
 timedata.addEventListener('click', function (event) {
@@ -364,7 +368,8 @@ function ready(){
       mapname[0].textContent = intext;
   };
   
-
+  var cur_var = layers.hs_lyr_group;
+  console.log(cur_var)
   const lili = document.getElementsByClassName('uk-dropdown-nav');
   lili[0].addEventListener('click', function(event) {
       event.preventDefault();
@@ -381,67 +386,67 @@ function ready(){
       });
       selection.classList.add('uk-active');
 
-      var cur_var = layers.hs_lyr_group;
+      console.log(cur_var);
       map.removeLayer(cur_var);
       var level = 1;
 
       switch(MapRequestId) {
          case 'hs':
            cur_var = layers.hs_lyr_group;
-          //  insert_legend(colorbrewer.RdPu, 0, 18, 1);
+           insert_legend(colorbrewer.RdPu, 0, 18, 1);
            break;
          case 'h3p':
            cur_var = layers.h3p_lyr_group;
-          //  insert_legend(colorbrewer.PuRd, 0, 24, 2);
+           insert_legend(colorbrewer.PuRd, 0, 24, 2);
            break;
          case 'hsr':
            cur_var = layers.hsr_lyr_group;
-          //  insert_legend(colorbrewer.OrRd, 0, 2.8, 0.2);
+           insert_legend(colorbrewer.OrRd, 0, 2.8, 0.2);
            break;
          case 'lsr':
            cur_var = layers.lsr_lyr_group;
-          //  insert_legend(colorbrewer.Blues, 0, 80, 5);
+           insert_legend(colorbrewer.Blues, 0, 80, 5);
            break;
          case 'psr':
            cur_var = layers.psr_lyr_group;
-          //  insert_legend(colorbrewer.Greens, 0, 5, 0.5);
+           insert_legend(colorbrewer.Greens, 0, 5, 0.5);
            break;
          case 'esr':
            cur_var = layers.esr_lyr_group;
-          //  insert_legend(colorbrewer.YlGnBu, 0, 35, 2.5);
+           insert_legend(colorbrewer.YlGnBu, 0, 35, 2.5);
            break;
          case 'osr':
            cur_var = layers.osr_lyr_group;
-          //  insert_legend(colorbrewer.YlGn, 0, 60, 5);
+           insert_legend(colorbrewer.YlGn, 0, 60, 5);
            break;
          case 'wind_grp_50':
            cur_var = layers.wind_grp_50_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
+           insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
            level = 2;
            break;
          case 'wind_grp_100':
            cur_var = layers.wind_grp_100_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
+           insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
            level = 2;
            break;
          case 'wind_grp_50c':
            cur_var = layers.wind_grp_50c_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
+           insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
            level = 2;
            break;
          case 'wind_grp_100c':
            cur_var = layers.wind_grp_100c_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
+           insert_legend(colorbrewer.PuBuGn, 0, 1200, 100);
            level = 2;
            break;
          case 'wind_spd_50c_year':
            cur_var = layers.wind_spd_50c_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 8, 1);
+           insert_legend(colorbrewer.PuBuGn, 0, 8, 1);
            level = 2;
            break;
          case 'wind_spd_100c_year':
            cur_var = layers.wind_spd_100c_lyr_group;
-          //  insert_legend(colorbrewer.PuBuGn, 0, 8, 1);
+           insert_legend(colorbrewer.PuBuGn, 0, 8, 1);
            level = 2;
            break;
    
@@ -451,7 +456,8 @@ function ready(){
 
   });
 
-
+  tools.tablesInit(1, [1], "legendplace");
+  insert_legend(colorbrewer.RdPu, 0, 18, 1);
 
   const closeBut = document.getElementsByClassName('fa-times-circle');
   closeBut[0].addEventListener('click', function(event) {

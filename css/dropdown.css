@@ -33,11 +33,12 @@
     max-width: 40%;
 }
 
-.legendplace {
+#legendplace {
     margin: 0 30px;
     height: 50px;
+    /* width: 200px; */
     align-items: center;
-    /* border: solid 1px steelblue; */
+    border: solid 1px steelblue;
 }
 
 .rose-graphic, .freq-graphic, .ww-table {

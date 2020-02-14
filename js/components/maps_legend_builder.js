@@ -44,6 +44,8 @@ function splitCell(col, row, cols_amount) {
 
 function createTable(id, rows, cols, is_split, align) {
     var body = document.getElementById(id);
+    console.log("that place 48")
+    console.log(body)
     var tbl  = document.createElement('table');
 
     //it is nessesary not to have table for all screen
@@ -67,6 +69,7 @@ function createTable(id, rows, cols, is_split, align) {
         }
     }
     body.appendChild(tbl);
+    
     return tbl;
 }
 

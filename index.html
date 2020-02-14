@@ -23,6 +23,7 @@
     
 </head>
 <body>
+    <div id="legendplace"></div>
     <div class="wrapper">
         <div class="wrapper__container">
             <header class="header">
@@ -39,19 +40,17 @@
                                 <li id="lsr"><a href="#">Средняя длина волн, [м]</a></li>
                                 <li id="psr"><a href="#">Средний период волн, [с]</a></li>
                                 <li id="osr"><a href="#">Обеспеченность >1 кВт, [%]</a></li>
-                                <li class="uk-nav-header">ветер</li>
+                                <li class="uk-nav-header">ветер — сетка</li>
                                 <li class="uk-nav-divider"></li>
-                                <li id="wind_grp_50"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м, [Вт/кв.м] — изолинии</a></li>
-                                <li id="wind_grp_100"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м, [Вт/кв.м] — изолинии</a></li>
-                                <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м, [Вт/кв.м] — сетка</a></li>
-                                <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м, [Вт/кв.м] — сетка</a></li>
-                                <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с] — сетка</a></li>
-                                <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с] — сетка</a></li>
+                                <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м, [Вт/кв.м]</a></li>
+                                <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м, [Вт/кв.м]</a></li>
+                                <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с]</a></li>
+                                <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с]</a></li>
                             </ul>
                     </div>
                 </div>
                 <div class="curchoice"></div>
-                <div class="legendplace"></div>
+                <!-- <div id="legendplace"></div> -->
             </header>
 
             
@@ -114,7 +113,6 @@
                                 <tr>
                                     <td>МАКС. ВЫСОТА (3%), [м]<hr style="margin-top: 3px;" class="uk-divider-small"></td>
                                     <td id="wave_maxh3p" style="color:black; font-weight: bold;"></td>
-                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -134,7 +132,7 @@
                         <div class="dates">
                             <label for="start">Start date:</label>
                             <input id="start" type="text" name="startdate" class="uk-input uk-form-width-small" autocomplete="off"
-                                placeholder="01.01.1980" min="1980-01-01" max="2016-12-31" minlength="10" maxlength="10" required>
+                                placeholder="01.01.1980" value="01.01.2016" min="1980-01-01" max="2016-12-31" minlength="10" maxlength="10" required>
                             and time:
                             <select name="starttime" class="uk-select uk-form-width-small">
                                 <option value="0">00:00</option>
@@ -151,7 +149,7 @@
                         <div class="dates">
                             <label for="finish">End date: </label>
                             <input id="finish" name="enddate" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                placeholder="31.12.2016" minlength="10" maxlength="10" autocomplete="off" required>
+                                placeholder="31.12.2016" value="31.12.2016" minlength="10" maxlength="10" autocomplete="off" required>
                             and time:
                             <select name="endtime" class="uk-select uk-form-width-small">
                                 <option value="0">00:00</option>

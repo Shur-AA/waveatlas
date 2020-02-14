@@ -1,3 +1,16 @@
+var Service = require('node-windows').Service;
+
+// Create a new service object
+var svc = new Service({
+  name:'Hello World',
+  script: require('path').join('E:/Atlas/js','wservice.js')
+});
+
+// svc.logOnAs.domain = 'mydomain.local';
+// svc.logOnAs.account = 'username';
+// svc.logOnAs.password = 'password';
+
+
 const http = require('http');
 const { Client } = require('pg');
 const querystring = require('querystring');
