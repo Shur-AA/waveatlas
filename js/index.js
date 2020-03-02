@@ -29,8 +29,7 @@ var FooPicker = require('./appearence/foopicker.js');
 var epsg = 4326;
 
 function insert_legend(palette, from, to, by, id = 'td00') {
-  document.getElementById("legendplace").innerHTML = "";
-  console.log(document.getElementById("legendplace"));
+  document.getElementById(id).innerHTML = "";
   tools.layeredColoring(0, 0,
               fun.get_colors(palette, from, to, by),
               false, [30, 15], false,

@@ -38,7 +38,7 @@
     height: 50px;
     /* width: 200px; */
     align-items: center;
-    border: solid 1px steelblue;
+    /* border: solid 1px steelblue; */
 }
 
 .rose-graphic, .freq-graphic, .ww-table {
@@ -118,8 +118,8 @@
 
 .timedata {
     position: absolute;
-    right: 0;
-    top: 50px;
+    left: 0px;
+    top: 150px;
     
 }
 
