@@ -51,6 +51,19 @@ function fillFullSupply(p, en, wl, hs, ind){
   return request;
 }
 
+function rosedata(lat, lon){
+  wind = "'wind'"
+  let request = 'select "vls" from blackchart where "latitude" = ' + lat + 'and "longitude" = ' + lon + 'and "season" =' + wind;
+  console.log('Query string from function: ' + request);
+  return request;
+}
+
+function freqdata(lat, lon, ht){
+  let request = 'select "vls", "season" from blackchart where "latitude" = ' + lat + 'and "longitude" = ' + lon + 'and "height" =' + ht;
+  console.log('Query string from function: ' + request);
+  return request;
+}
+
 const server = http.createServer((req, res) => {
       let data = {};
       req.on('data', chunk => {
@@ -62,22 +75,28 @@ const server = http.createServer((req, res) => {
         switch(data.type){
           case 'maintbl':
               var query = fillQtable(reformatDatetime(data.startdate, data.starthour),
-              reformatDatetime(data.enddate, data.endhour), 2000);
+              reformatDatetime(data.enddate, data.endhour), data.pindex);
               break;
           case 'supall':
-              var query = fillFullSupply(data.period, data.energy, data.wlen, data.hsig, 2000);
+              var query = fillFullSupply(data.period, data.energy, data.wlen, data.hsig, data.pindex);
               break;
           case 'supperiod':
-              var query = fillSupplyRow('Period', data.operator, data.period_in, 2000);
+              var query = fillSupplyRow('Period', data.operator, data.period_in, data.pindex);
               break;
           case 'supenergy':
-              var query = fillSupplyRow('Energy', data.operator, data.energy_in, 2000);
+              var query = fillSupplyRow('Energy', data.operator, data.energy_in, data.pindex);
               break;
           case 'suplen':
-              var query = fillSupplyRow('Wlen', data.operator, data.wlen_in, 2000);
+              var query = fillSupplyRow('Wlen', data.operator, data.wlen_in, data.pindex);
               break;
           case 'supsig':
-              var query = fillSupplyRow('Hsig', data.operator, data.hsig_in, 2000);
+              var query = fillSupplyRow('Hsig', data.operator, data.hsig_in, data.pindex);
+              break;
+          case 'rose':
+              var query = rosedata(data.lat, data.lon);
+              break;
+          case 'freq':
+              var query = freqdata(data.lat, data.lon, data.height);
               break;
         }
         

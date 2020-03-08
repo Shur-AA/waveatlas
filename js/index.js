@@ -61,8 +61,8 @@ const map = new Map({
     cur_lyr,
     // layers.land_lyr,
     // layers.bnd_lyr,
-    layers.coast_lyr,
-    layers.city_lyr,
+    // layers.coast_lyr,  +
+    // layers.city_lyr,   +
     // layers.geo_lines
     // layers.voronoy_lyr
   ],
@@ -147,7 +147,6 @@ timedata.addEventListener('click', function (event) {
   const dataform = document.querySelector('#dataform');
   const databut = document.querySelector('#calcbut');
 
-  console.log(point_index);
   databut.addEventListener('click', function (event) {
     event.preventDefault();
     var startdate = dataform.elements.startdate.value;
@@ -160,6 +159,7 @@ timedata.addEventListener('click', function (event) {
                   "starthour": starthour,
                   "enddate": enddate,
                   "endhour": endhour,
+                  "pindex": point_index,
                   "type": "maintbl"};
 
     let elem = $(event.currentTarget).parent().parent();
@@ -209,6 +209,7 @@ timedata.addEventListener('click', function (event) {
                         "energy": data[0].med_energy,
                         "wlen": data[0].med_wlen,
                         "hsig": data[0].med_hsig,
+                        "pindex": point_index,
                         "type": "supall"};
           $.ajax({
             url: url,
