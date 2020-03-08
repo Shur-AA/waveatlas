@@ -5,6 +5,8 @@ import GeoJSON from 'ol/format/GeoJSON';
 import TileJSON from 'ol/source/TileJSON.js';
 import OSM from 'ol/source/OSM';
 import MVT from 'ol/format/MVT.js';
+import WMTS from 'ol/source/WMTS';
+import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import {Fill, Stroke, Icon, Style, Text, Circle} from 'ol/style';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import TileWMS from 'ol/source/TileWMS.js';
@@ -22,6 +24,7 @@ var epsg = 4326;
 var host = "localhost:8080/geoserver";
 // var host2 = "autolab.geogr.msu.ru:8080/geoserver";
 
+
 var gridNames = ['EPSG:4326:0', 'EPSG:4326:1', 'EPSG:4326:2', 'EPSG:4326:3', 'EPSG:4326:4', 'EPSG:4326:5', 'EPSG:4326:6', 'EPSG:4326:7', 'EPSG:4326:8', 'EPSG:4326:9', 'EPSG:4326:10', 'EPSG:4326:11', 'EPSG:4326:12', 'EPSG:4326:13', 'EPSG:4326:14', 'EPSG:4326:15', 'EPSG:4326:16', 'EPSG:4326:17', 'EPSG:4326:18', 'EPSG:4326:19', 'EPSG:4326:20', 'EPSG:4326:21'];
 
 var resolutions = [0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625, 6.866455078125E-4, 3.4332275390625E-4, 1.71661376953125E-4, 8.58306884765625E-5, 4.291534423828125E-5, 2.1457672119140625E-5, 1.0728836059570312E-5, 5.364418029785156E-6, 2.682209014892578E-6, 1.341104507446289E-6, 6.705522537231445E-7, 3.3527612686157227E-7];
@@ -33,12 +36,15 @@ function vt_source(host, name, epsg = 4326){
   })
 }
 
+// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/$wavenergy:hs_band@EPSG%3A$epsg@pbf/{z}/{x}/{-y}.pbf
+
 function vector_source(host, name, epsg = 4326){
   return new VectorSource({
     format: new GeoJSON(),
     url: `http://${host}/wavenergy/ows?service=wfs&version=1.1.0&request=GetFeature&typename=${name}&outputFormat=application/json&srsname=EPSG:${epsg}`
   });
 }
+
 
 var bnd_lyr = new VectorLayer({
    style: new Style({

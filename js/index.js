@@ -45,7 +45,9 @@ var prj = new Projection({
   axisOrientation: 'neu'
 });
 
+
 var cur_lyr = layers.hs_lyr_group;
+
 
 const map = new Map({
   target: 'map',
@@ -145,6 +147,7 @@ timedata.addEventListener('click', function (event) {
   const dataform = document.querySelector('#dataform');
   const databut = document.querySelector('#calcbut');
 
+  console.log(point_index);
   databut.addEventListener('click', function (event) {
     event.preventDefault();
     var startdate = dataform.elements.startdate.value;
@@ -251,111 +254,80 @@ $("#period_input").on('change', e => {
   })
   });
 
-  $("#greater_less1").on('change', e => {
-    var changejson = {"period_in": $("#period_input")[0].value,
-                    "operator": $("#greater_less1")[0].value,
-                    "type": "supperiod"};
+
+$("#greater_less1").on('change', e => {
+    var v = document.getElementById("periodsup_value").innerHTML;
+    v = Number((100 - parseFloat(v)).toFixed(1))
+    document.getElementById("periodsup_value").innerHTML = v + ' %';
+    }
+  );
+
+
+$("#energy_input").on('change', e => {
+  var changejson = {"energy_in": $("#energy_input")[0].value,
+                  "operator": $("#greater_less2")[0].value,
+                  "type": "supenergy"};
+  var url = "http://127.0.0.1:3000/";
+  $.ajax({
+    url: url,
+    type: "POST",
+    data : JSON.stringify(changejson),
+    success : function(data) {
+      document.getElementById("energysup_value").innerHTML = data[0].supply + ' %';
+    }
+  })
+  });
+
+  $("#greater_less2").on('change', e => {
+    var v = document.getElementById("energysup_value").innerHTML;
+    v = Number((100 - parseFloat(v)).toFixed(1))
+    document.getElementById("energysup_value").innerHTML = v + ' %';
+    }
+  );
+
+  $("#len_input").on('change', e => {
+    var changejson = {"wlen_in": $("#len_input")[0].value,
+                    "operator": $("#greater_less3")[0].value,
+                    "type": "suplen"};
     var url = "http://127.0.0.1:3000/";
     $.ajax({
       url: url,
       type: "POST",
       data : JSON.stringify(changejson),
       success : function(data) {
-        document.getElementById("periodsup_value").innerHTML = data[0].supply + ' %';
+        document.getElementById("lensup_value").innerHTML = data[0].supply + ' %';
       }
     })
     });
 
-    $("#energy_input").on('change', e => {
-      var changejson = {"energy_in": $("#energy_input")[0].value,
-                      "operator": $("#greater_less2")[0].value,
-                      "type": "supenergy"};
+    $("#greater_less3").on('change', e => {
+      var v = document.getElementById("lensup_value").innerHTML;
+      v = Number((100 - parseFloat(v)).toFixed(1))
+      document.getElementById("lensup_value").innerHTML = v + ' %';
+      }
+    );
+
+    $("#hsig_input").on('change', e => {
+      var changejson = {"hsig_in": $("#hsig_input")[0].value,
+                      "operator": $("#greater_less4")[0].value,
+                      "type": "supsig"};
       var url = "http://127.0.0.1:3000/";
       $.ajax({
         url: url,
         type: "POST",
         data : JSON.stringify(changejson),
         success : function(data) {
-          document.getElementById("energysup_value").innerHTML = data[0].supply + ' %';
+          document.getElementById("hsigsup_value").innerHTML = data[0].supply + ' %';
         }
       })
       });
 
-    $("#greater_less2").on('change', e => {
-      var changejson = {"energy_in": $("#energy_input")[0].value,
-                      "operator": $("#greater_less2")[0].value,
-                      "type": "supenergy"};
-      var url = "http://127.0.0.1:3000/";
-      $.ajax({
-        url: url,
-        type: "POST",
-        data : JSON.stringify(changejson),
-        success : function(data) {
-          document.getElementById("energysup_value").innerHTML = data[0].supply + ' %';
-        }
-      })
-      });
-
-      $("#len_input").on('change', e => {
-        var changejson = {"wlen_in": $("#len_input")[0].value,
-                        "operator": $("#greater_less3")[0].value,
-                        "type": "suplen"};
-        var url = "http://127.0.0.1:3000/";
-        $.ajax({
-          url: url,
-          type: "POST",
-          data : JSON.stringify(changejson),
-          success : function(data) {
-            document.getElementById("lensup_value").innerHTML = data[0].supply + ' %';
-          }
-        })
-        });
-
-        $("#greater_less3").on('change', e => {
-          var changejson = {"wlen_in": $("#len_input")[0].value,
-                          "operator": $("#greater_less3")[0].value,
-                          "type": "suplen"};
-          var url = "http://127.0.0.1:3000/";
-          $.ajax({
-            url: url,
-            type: "POST",
-            data : JSON.stringify(changejson),
-            success : function(data) {
-              document.getElementById("lensup_value").innerHTML = data[0].supply + ' %';
-            }
-          })
-          });
-
-          $("#hsig_input").on('change', e => {
-            var changejson = {"hsig_in": $("#hsig_input")[0].value,
-                            "operator": $("#greater_less4")[0].value,
-                            "type": "supsig"};
-            var url = "http://127.0.0.1:3000/";
-            $.ajax({
-              url: url,
-              type: "POST",
-              data : JSON.stringify(changejson),
-              success : function(data) {
-                document.getElementById("hsigsup_value").innerHTML = data[0].supply + ' %';
-              }
-            })
-            });
-
-
-            $("#greater_less4").on('change', e => {
-              var changejson = {"hsig_in": $("#hsig_input")[0].value,
-                              "operator": $("#greater_less4")[0].value,
-                              "type": "supsig"};
-              var url = "http://127.0.0.1:3000/";
-              $.ajax({
-                url: url,
-                type: "POST",
-                data : JSON.stringify(changejson),
-                success : function(data) {
-                  document.getElementById("hsigsup_value").innerHTML = data[0].supply + ' %';
-                }
-              })
-              });
+$("#greater_less4").on('change', e => {
+  var v = document.getElementById("hsigsup_value").innerHTML;
+  v = Number((100 - parseFloat(v)).toFixed(1))
+  document.getElementById("hsigsup_value").innerHTML = v + ' %';
+  }
+);
 
 
 
@@ -367,6 +339,9 @@ function ready(){
       mapname[0].textContent = intext;
   };
   
+
+  drawMapName('МАКСИМАЛЬНАЯ ВЫСОТА ЗНАЧИТЕЛЬНЫХ ВОЛН, [М]');
+
   var cur_var = layers.hs_lyr_group;
   console.log(cur_var)
   const lili = document.getElementsByClassName('uk-dropdown-nav');
