@@ -77,15 +77,30 @@ const map = new Map({
   })
 });
 
+var coordinate = 0;
 map.on('click', function(evt) {
-  var coordinate = evt.coordinate;
-  var hdms = toStringHDMS(toLonLat(coordinate));
-  console.log(coordinate);
+  coordinate = evt.coordinate;
+  var htbox = document.getElementsByClassName("tb-checkbox");
+  htbox[0].checked = false;
   render_rose.render_rose(coordinate[1], coordinate[0]);
-  render_hist.render_hist(coordinate[1], coordinate[0]);
+  render_hist.render_hist(coordinate[1], coordinate[0], 50);
+  var htbox = document.getElementsByClassName("tb-checkbox");
+  htbox[0].checked = false;
+  var htbox = document.getElementsByClassName("tb-checkbox");
+  htbox[0].checked = false;
+  htbox[0].addEventListener('change', function(event) {
+    if (htbox[0].checked){
+      render_hist.render_hist(coordinate[1], coordinate[0], 100);
+    } else {
+      render_hist.render_hist(coordinate[1], coordinate[0], 50);
+    }
+  });
   let coors_var = document.getElementById("coords-display");
   coors_var.innerHTML = 'Широта: ' + coordinate[1].toFixed(4) + '<br>' + 'Долгота: ' + coordinate[0].toFixed(4);
 });
+
+
+
 
 var point_index = 0;
 map.on('singleclick', function(evt) {

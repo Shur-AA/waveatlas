@@ -66,7 +66,6 @@ function createTable(id, rows, cols, is_split, align) {
             td.style.border = globalBorder;
         }
     }
-    console.log(tbl)
     body.appendChild(tbl);
     
     return tbl;

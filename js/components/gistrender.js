@@ -82,8 +82,7 @@ function wind_hist(wind_data, divId) {
 }
 
 
-function render_hist(clicked_lat, clicked_lon){
-    var clicked_h = 100;
+function render_hist(clicked_lat, clicked_lon, clicked_h){
     var wind_div = 'freq-graphic';
     var div = document.getElementsByClassName("freq-graphic");
     div[0].style.visibility = 'visible';
@@ -97,9 +96,7 @@ function render_hist(clicked_lat, clicked_lon){
         type: "POST",
         data : JSON.stringify(freqjson),
         success : function(data) {
-            console.log(data);
             var wind_data = fill_vars(data);
-            console.log(wind_data);
             wind_hist(wind_data, wind_div);
         }
     })

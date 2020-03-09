@@ -20,40 +20,44 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- <script src="./js/components/roserender.js"></script> -->
     <!-- <script src="./js/components/gistrender.js"></script> -->
-    
+
 </head>
+
 <body>
     <!-- <div id="legendplace"></div> -->
     <div class="wrapper">
         <div class="wrapper__container">
             <header class="header">
                 <div class="uk-inline">
-                    <button id="menu" class="uk-button uk-button-text" type="button">Выбор параметра</button>
+                    <button id="menu" class="uk-button uk-button-text" type="button">Выбрать карту</button>
                     <div uk-dropdown="mode: click" style="position: absolute;">
-                            <ul id="dropdown-nav" class="uk-nav uk-dropdown-nav">
-                                <li class="uk-nav-header">волны</li>
-                                <li class="uk-nav-divider"></li>
-                                <li id="hs" class="uk-active"><a href="#">Максимальная высота значительных волн, [м]</a></li>
-                                <li id="h3p"><a href="#">Максимальная высота волн (3%), [м]</a></li>
-                                <li id="hsr"><a href="#">Средняя высота волн, [м]</a></li>
-                                <li id="esr"><a href="#">Средняя энергия волн, [кВт/м]</a></li>
-                                <li id="lsr"><a href="#">Средняя длина волн, [м]</a></li>
-                                <li id="psr"><a href="#">Средний период волн, [с]</a></li>
-                                <li id="osr"><a href="#">Обеспеченность >1 кВт, [%]</a></li>
-                                <li class="uk-nav-header">ветер — сетка</li>
-                                <li class="uk-nav-divider"></li>
-                                <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м, [Вт/кв.м]</a></li>
-                                <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м, [Вт/кв.м]</a></li>
-                                <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с]</a></li>
-                                <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с]</a></li>
-                            </ul>
+                        <ul id="dropdown-nav" class="uk-nav uk-dropdown-nav">
+                            <li class="uk-nav-header">волны</li>
+                            <li class="uk-nav-divider"></li>
+                            <li id="hs" class="uk-active"><a href="#">Максимальная высота значительных волн, [м]</a>
+                            </li>
+                            <li id="h3p"><a href="#">Максимальная высота волн (3%), [м]</a></li>
+                            <li id="hsr"><a href="#">Средняя высота волн, [м]</a></li>
+                            <li id="esr"><a href="#">Средняя энергия волн, [кВт/м]</a></li>
+                            <li id="lsr"><a href="#">Средняя длина волн, [м]</a></li>
+                            <li id="psr"><a href="#">Средний период волн, [с]</a></li>
+                            <li id="osr"><a href="#">Обеспеченность >1 кВт, [%]</a></li>
+                            <li class="uk-nav-header">ветер — сетка</li>
+                            <li class="uk-nav-divider"></li>
+                            <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м,
+                                    [Вт/кв.м]</a></li>
+                            <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м,
+                                    [Вт/кв.м]</a></li>
+                            <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с]</a></li>
+                            <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с]</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="curchoice"></div>
                 <div id="legendplace"></div>
             </header>
 
-            
+
             <section id="map"></section>
             <section class="addinfo">
                 <div class="graphics">
@@ -61,61 +65,80 @@
                         <div id="rose-graphic"></div>
                         <div class="control_butt">
                             <i class="fa fa-times-circle" uk-tooltip="title:Скрыть график; pos: right; offset: 4"></i>
-                            <i class="fa fa-info-circle" uk-tooltip="title:Роза-диаграмма повторяемости направлений ветра; pos: right; offset: 4"></i>
+                            <i class="fa fa-info-circle"
+                                uk-tooltip="title:Роза-диаграмма повторяемости направлений ветра; pos: right; offset: 4"></i>
                         </div>
                     </article>
+
                     <article class="freq-graphic">
                         <div id="freq-graphic"></div>
                         <div class="control_butt">
                             <i class="fa fa-times-circle" uk-tooltip="title:Скрыть график; pos: right; offset: 4"></i>
-                            <i class="fa fa-info-circle" uk-tooltip="title:Гистограмма повторяемости скоростей ветра; pos: right; offset: 4"></i>
-                        </div>
+                            <i class="fa fa-info-circle"
+                                uk-tooltip="title:Гистограмма повторяемости скоростей ветра; pos: right; offset: 4"></i>
+                            <!-- toggle button     -->
+                            <div class="tb-row">
+                                <div class="tb-toggle-button-cover">
+                                    <div class="tb-button-cover">
+                                        <div class="tb-button b2" id="tb-button-10">
+                                            <input type="checkbox" class="tb-checkbox" name="freq-height" >
+                                            <div class="tb-knobs">
+                                                <span>50 m</span>
+                                            </div>
+                                            <div class="tb-layer"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- toggle button  end   -->
+                            </div>
                     </article>
                 </div>
                 <article class="ww-table" style="font-size: 13px;">
-                        <div class="control_butt">
-                            <i class="fa fa-times-circle" uk-tooltip="title:Скрыть таблицу; pos: right; offset: 4"></i>
-                        </div>
-                        <table class="uk-table uk-table-responsive">
-                            <caption style="padding-right: 5px;">Параметры волн</caption>
-                            <caption id="sea_name" style="color:black; margin-top: 3px; padding-right: 5px;">
-                            </caption>
-                            <tfoot>
-                                <tr>
-                                    <td id="coords-display">Широта:<br>
-                                                            Долгота:
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-                                    <td>ВЫСОТА, [м]</td>
-                                    <td id="wave_height" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                                <tr>
-                                    <td>ДЛИНА, [м]</td>
-                                    <td id="wave_lenght" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                                <tr>
-                                    <td>ПЕРИОД, [с]</td>
-                                    <td id="wave_period" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                                <tr>
-                                    <td>ЭНЕРГИЯ, [кВт/м]</td>
-                                    <td id="wave_energy" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                                <tr>
-                                    <td>МАКС. ВЫСОТА, [м.]</td>
-                                    <td id="wave_maxh" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                                <tr>
-                                    <td>МАКС. ВЫСОТА (3%), [м]<hr style="margin-top: 3px;" class="uk-divider-small"></td>
-                                    <td id="wave_maxh3p" style="color:black; font-weight: bold;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="control_butt">
+                        <i class="fa fa-times-circle" uk-tooltip="title:Скрыть таблицу; pos: right; offset: 4"></i>
+                    </div>
+                    <table class="uk-table uk-table-responsive">
+                        <caption style="padding-right: 5px;">Параметры волн</caption>
+                        <caption id="sea_name" style="color:black; margin-top: 3px; padding-right: 5px;">
+                        </caption>
+                        <tfoot>
+                            <tr>
+                                <td id="coords-display">Широта:<br>
+                                    Долгота:
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>ВЫСОТА, [м]</td>
+                                <td id="wave_height" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>ДЛИНА, [м]</td>
+                                <td id="wave_lenght" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>ПЕРИОД, [с]</td>
+                                <td id="wave_period" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>ЭНЕРГИЯ, [кВт/м]</td>
+                                <td id="wave_energy" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>МАКС. ВЫСОТА, [м.]</td>
+                                <td id="wave_maxh" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>МАКС. ВЫСОТА (3%), [м]
+                                    <hr style="margin-top: 3px;" class="uk-divider-small">
+                                </td>
+                                <td id="wave_maxh3p" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
                 </article>
@@ -126,13 +149,14 @@
                 </article>
             </section>
             <section class="table_place">
-            
+
                 <div class="datetime_manager">
                     <form action="#" id="dataform">
                         <div class="dates">
                             <label for="start">Start date:</label>
-                            <input id="start" type="text" name="startdate" class="uk-input uk-form-width-small" autocomplete="off"
-                                placeholder="01.01.1980" value="01.01.2016" min="1980-01-01" max="2016-12-31" minlength="10" maxlength="10" required>
+                            <input id="start" type="text" name="startdate" class="uk-input uk-form-width-small"
+                                autocomplete="off" placeholder="01.01.1980" value="01.01.2016" min="1980-01-01"
+                                max="2016-12-31" minlength="10" maxlength="10" required>
                             and time:
                             <select name="starttime" class="uk-select uk-form-width-small">
                                 <option value="0">00:00</option>
@@ -145,11 +169,12 @@
                                 <option value="21">21:00</option>
                             </select>
                         </div>
-            
+
                         <div class="dates">
                             <label for="finish">End date: </label>
-                            <input id="finish" name="enddate" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                placeholder="31.12.2016" value="31.12.2016" minlength="10" maxlength="10" autocomplete="off" required>
+                            <input id="finish" name="enddate" style="margin-left:6px;"
+                                class="uk-input uk-form-width-small" placeholder="31.12.2016" value="31.12.2016"
+                                minlength="10" maxlength="10" autocomplete="off" required>
                             and time:
                             <select name="endtime" class="uk-select uk-form-width-small">
                                 <option value="0">00:00</option>
@@ -167,9 +192,11 @@
                         <button id="calcbut" class="uk-button uk-button-primary uk-button-small">calculate</button>
                     </div>
                 </div>
-            
+
                 <div class="dates" id="timeshow">
-                        <button style="color:#0f6ecd;" id="timeshowbut" class="uk-button uk-button-default uk-button-small uk-width-1-1">2016-11-09 06:00:00 - 2016-07-16 18:00:00</button>
+                    <button style="color:#0f6ecd;" id="timeshowbut"
+                        class="uk-button uk-button-default uk-button-small uk-width-1-1">2016-11-09 06:00:00 -
+                        2016-07-16 18:00:00</button>
                 </div>
 
                 <div class="uk-divider-icon"></div>
@@ -232,56 +259,68 @@
                             <tr>
                                 <td class="rowhead">Период<br>волн</td>
                                 <td id="gr_less1">
-                                    <select id = "greater_less1" name="greater_less1" class="uk-select uk-form-width-xsmall">
+                                    <select id="greater_less1" name="greater_less1"
+                                        class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less"><</option>
+                                        <option value="less">
+                                            << /option>
                                     </select>
                                 </td>
                                 <td id="period_input_td">
-                                    <input id="period_input" name="period_input" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                    placeholder="0.25" autocomplete="off"> <b>:</b>
+                                    <input id="period_input" name="period_input" style="margin-left:6px;"
+                                        class="uk-input uk-form-width-small" placeholder="0.25" autocomplete="off">
+                                    <b>:</b>
                                 </td>
                                 <td id="periodsup_value"></td>
                             </tr>
                             <tr>
                                 <td class="rowhead">Энергия<br>волн</td>
                                 <td id="gr_less2">
-                                    <select id = "greater_less2" name="greater_less2" class="uk-select uk-form-width-xsmall">
+                                    <select id="greater_less2" name="greater_less2"
+                                        class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less"><</option>
+                                        <option value="less">
+                                            << /option>
                                     </select>
                                 </td>
                                 <td id="energy_input_td">
-                                    <input id="energy_input" name="energy_input" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                    placeholder="0.25" autocomplete="off"> <b>:</b>
+                                    <input id="energy_input" name="energy_input" style="margin-left:6px;"
+                                        class="uk-input uk-form-width-small" placeholder="0.25" autocomplete="off">
+                                    <b>:</b>
                                 </td>
                                 <td id="energysup_value"></td>
                             </tr>
                             <tr>
                                 <td class="rowhead">Длины<br>волн</td>
                                 <td id="gr_less3">
-                                    <select id = "greater_less3" name="greater_less3" class="uk-select uk-form-width-xsmall">
+                                    <select id="greater_less3" name="greater_less3"
+                                        class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less"><</option>
+                                        <option value="less">
+                                            << /option>
                                     </select>
                                 </td>
                                 <td id="len_input_td">
-                                    <input id="len_input" name="len_input" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                    placeholder="0.25" autocomplete="off"> <b>:</b>
+                                    <input id="len_input" name="len_input" style="margin-left:6px;"
+                                        class="uk-input uk-form-width-small" placeholder="0.25" autocomplete="off">
+                                    <b>:</b>
                                 </td>
                                 <td id="lensup_value"></td>
                             </tr>
                             <tr>
                                 <td class="rowhead">Волнами<br>значительной<br>высоты</td>
                                 <td id="gr_less4">
-                                    <select id = "greater_less4" name="greater_less4" class="uk-select uk-form-width-xsmall">
+                                    <select id="greater_less4" name="greater_less4"
+                                        class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less"><</option>
+                                        <option value="less">
+                                            << /option>
                                     </select>
                                 </td>
                                 <td id="hsig_input_td">
-                                    <input id="hsig_input" name="hsig_input" style="margin-left:6px;" class="uk-input uk-form-width-small"
-                                    placeholder="0.25" autocomplete="off"> <b>:</b>
+                                    <input id="hsig_input" name="hsig_input" style="margin-left:6px;"
+                                        class="uk-input uk-form-width-small" placeholder="0.25" autocomplete="off">
+                                    <b>:</b>
                                 </td>
                                 <td id="hsigsup_value"></td>
                             </tr>
@@ -289,10 +328,10 @@
                     </table>
                 </div>
             </section>
-            </div>
-            </div>
+        </div>
+    </div>
 
-    
+
     <script src="./js/index.js"></script>
     <!-- <script>
 

@@ -89,8 +89,6 @@
 }
 
 
-
-
 .freq-graphic {
     width: 40vw;
     height: 100%;
@@ -104,6 +102,130 @@
     height: 100%;
     box-sizing: border-box;
 }
+
+/* toggle button style */
+.tb-row {
+    display: table-row;
+  }
+  
+  .tb-toggle-button-cover {
+    display: table-cell;
+    position: relative;
+    top: -44px;
+    left: 40px;
+    /* width: 100px;
+    height: 0px; */
+    box-sizing: border-box;
+  }
+
+  
+  .tb-button-cover,
+  .tb-knobs,
+  .tb-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .tb-button {
+    position: relative;
+    top: 50%;
+    width: 140px;
+    height: 35px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+  }
+  
+  .tb-button.r,
+  .tb-button.r .tb-layer {
+    border-radius: 100px;
+  }
+  
+  .tb-button.b2 {
+    border-radius: 2px;
+  }
+  
+  .tb-checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+  }
+  
+  .tb-knobs {
+    z-index: 2;
+  }
+  
+  .tb-layer {
+    width: 98%;
+    background-color: #d1f0f0;
+    border: solid 1px #8FBC8F;
+    border-radius: 2px;
+    transition: 0.3s ease all;
+    z-index: 1;
+  }
+    
+  /* Button 10 */
+  #tb-button-10 .tb-knobs:before,
+  #tb-button-10 .tb-knobs:after,
+  #tb-button-10 .tb-knobs span {
+    position: absolute;
+    top: 4px;
+    width: 50px;
+    height: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.6;
+    padding: 9px 4px;
+    border-radius: 2px;
+    transition: 0.3s ease all;
+  }
+  
+  #tb-button-10 .tb-knobs:before {
+    content: "";
+    left: 4px;
+    background-color: steelblue;
+  }
+  /* #03a9f4 */
+  #tb-button-10 .tb-knobs:after {
+    content: "100 m";
+    right: 4px;
+    color: #4e4e4e;
+  }
+  
+  #tb-button-10 .tb-knobs span {
+    display: inline-block;
+    left: 4px;
+    color: #fff;
+    z-index: 1;
+  }
+  
+  #tb-button-10 .tb-checkbox:checked + .tb-knobs span {
+    color: #4e4e4e;
+  }
+  
+  #tb-button-10 .tb-checkbox:checked + .tb-knobs:before {
+    left: 77px;
+    background-color: steelblue;
+  }
+  
+  #tb-button-10 .tb-checkbox:checked + .tb-knobs:after {
+    color: #fff;
+  }
+  
+  #tb-button-10 .tb-checkbox:checked ~ .tb-layer {
+    background-color: #fcebeb;
+    border: solid 1px #BC8F8F;
+  }
+
+/* -----end toggle button----- */
 
 .ww-table {
     position: absolute;
