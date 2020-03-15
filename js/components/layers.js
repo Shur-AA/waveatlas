@@ -100,6 +100,13 @@ var coast_lyr = new VectorLayer({
  source: vector_source(host, 'wavenergy:ne_10m_coastline', epsg),
 })
 
+// color crutch
+var hsr_colors = fun.get_colors(colorbrewer.OrRd, 0, 2.6, 0.2);
+var bin_number = function(z, min, step){
+  var bin_num = Math.floor((z - min)/step);
+  return bin_num
+}
+
 var hs_lyr_group = new Group({
   combine: true,
   visible: true,
@@ -168,7 +175,8 @@ var hsr_lyr_group = new Group({
        var z = feature.get('Z_Mean');
        return new Style({
           fill: new Fill({
-            color: fun.get_color(colorbrewer.OrRd, z, 0, 2.8, 0.2)
+            // color: fun.get_color(colorbrewer.OrRd, z, 0, 2.6, 0.2)
+            color: hsr_colors[bin_number(z, 0, 0.2)]
           })
         })
       },

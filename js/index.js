@@ -62,7 +62,7 @@ const map = new Map({
     // layers.land_lyr,
     // layers.bnd_lyr,
     // layers.coast_lyr,  +
-    // layers.city_lyr,   +
+    // layers.city_lyr,  + 
     // layers.geo_lines
     // layers.voronoy_lyr
   ],
@@ -391,7 +391,7 @@ function ready(){
            break;
          case 'hsr':
            cur_var = layers.hsr_lyr_group;
-           insert_legend(colorbrewer.OrRd, 0, 2.8, 0.2);
+           insert_legend(colorbrewer.OrRd, 0, 2.6, 0.2);
            break;
          case 'lsr':
            cur_var = layers.lsr_lyr_group;
