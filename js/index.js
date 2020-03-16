@@ -1,5 +1,10 @@
 import Map from 'ol/Map';
 import 'ol/ol.css';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import Vector from 'ol/source/Vector.js';
+import {Vector as VectorLayer, VectorTile as VectorTileLayer, Image, Group } from 'ol/layer.js';
+import 'ol/style';
 import View from 'ol/View';
 import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
@@ -36,7 +41,51 @@ function insert_legend(palette, from, to, by, id = 'td00') {
               fun.get_values(from, to, by), "8pt Arial", "black", 30, 20,
               false, "", "bold 10pt Arial");
 }
-// insert_legend(colorbrewer.PuRd, 0, 24, 2);
+
+// insert clicked point
+var addMarker = function(coordinates){
+  
+  map.getLayers().forEach(function (layer) {
+    if (layer.get('name') == 'xaxa'){
+      map.removeLayer(layer);
+    } 
+  });
+  var fill = new Fill({
+    color: 'yellow'
+  });
+  var stroke = new Stroke({
+    color: 'red',
+    width: 1
+  });
+  var style = new Style({
+    image: new Circle({
+      fill: fill,
+      stroke: stroke,
+      radius: 4
+    }),
+    fill: fill,
+    stroke: stroke
+  });
+  var point_feature = new Feature({});
+  var point_geom = new Point(coordinates);
+  point_feature.setGeometry(point_geom);
+  var vector_layer = new VectorLayer({
+    name: 'xaxa',
+    source: new Vector({
+      features: [point_feature],
+    })
+  })
+  vector_layer.setStyle(style);
+
+  map.addLayer(vector_layer);
+}
+
+
+
+
+
+
+
 
 var center = [60, 60]
 var prj = new Projection({
@@ -80,6 +129,7 @@ const map = new Map({
 var coordinate = 0;
 map.on('click', function(evt) {
   coordinate = evt.coordinate;
+  addMarker(coordinate);
   var htbox = document.getElementsByClassName("tb-checkbox");
   htbox[0].checked = false;
   render_rose.render_rose(coordinate[1], coordinate[0]);
@@ -150,7 +200,26 @@ map.on('singleclick', function(evt) {
 
 var timedata = document.getElementById("timedatabut");
 timedata.addEventListener('click', function (event) {
-  document.querySelector('.table_place').style.visibility = 'visible';
+  var is_seen = document.querySelector('.table_place').style.visibility;
+  console.log(is_seen);
+  if (is_seen == 'visible'){
+    document.querySelector('.table_place').style.visibility = 'hidden';
+    document.querySelector('#timeshowbut').style.visibility = 'hidden';
+    document.querySelector('.responce_table').style.visibility = 'hidden';
+    document.querySelector('.supply_table').style.visibility = 'hidden';
+  } else {
+    document.querySelector('.table_place').style.visibility = 'visible';
+    if (document.getElementById("avg_hsig").innerHTML != ''){
+      console.log('table1 not empty');
+      document.querySelector('.responce_table').style.visibility = 'visible';
+      document.querySelector('#timeshowbut').style.visibility = 'visible';
+    };
+    if (document.getElementById("periodsup_value").innerHTML != ''){
+      console.log('table2 not empty');
+      document.querySelector('.supply_table').style.visibility = 'visible';
+    }
+  }
+  
   var foopicker_start = new FooPicker({
     id: 'start',
     dateFormat: 'dd.MM.yyyy'
@@ -376,7 +445,7 @@ function ready(){
       });
       selection.classList.add('uk-active');
 
-      console.log(cur_var);
+      // console.log(cur_var);
       map.removeLayer(cur_var);
       var level = 1;
 

@@ -13,6 +13,8 @@ import TileWMS from 'ol/source/TileWMS.js';
 import ImageWMS from 'ol/source/ImageWMS.js';
 
 
+
+
 var styles  = require('../appearence/styles');
 var fun = require('./functions');
 var colorbrewer = require('colorbrewer');

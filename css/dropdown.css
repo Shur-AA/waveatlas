@@ -240,9 +240,8 @@
 
 .timedata {
     position: absolute;
-    left: 0px;
-    top: 150px;
-    
+    left: 47px;
+    top: 55px;
 }
 
 .table_place {
@@ -327,6 +326,10 @@
         min-width: 373px;
         min-height: 127px;;
     }
+    .timedata {
+      left: 47px;
+      top: 120px;
+  }
 }
 
 @media screen and (max-width: 960px){

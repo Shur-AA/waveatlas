@@ -14,7 +14,7 @@ function get_color(palette, value, min, max, step, nan_color = '#FFFFFF') {
   if (isNaN(bin)){
     return nan_color
   }
-
+ 
   if (nbins <= 9) {
     return palette[nbins][bin];
   } else {
