@@ -17,6 +17,7 @@
     "node-windows": "^0.1.14",
     "ol": "^6.1.0",
     "pg": "^7.12.1",
+    "proj4": "^2.6.1",
     "querystring": "^0.2.0"
   },
   "devDependencies": {

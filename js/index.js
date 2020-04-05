@@ -5,6 +5,7 @@ import Point from 'ol/geom/Point';
 import Vector from 'ol/source/Vector.js';
 import {Vector as VectorLayer, VectorTile as VectorTileLayer, Image, Group } from 'ol/layer.js';
 import 'ol/style';
+import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import GeoJSON from 'ol/format/GeoJSON';
 import TileLayer from 'ol/layer/Tile';
@@ -19,8 +20,12 @@ import $ from 'jquery';
 import {Fill, Stroke, Icon, Style, Text, Circle} from 'ol/style';
 import {toStringHDMS} from 'ol/coordinate';
 import {fromLonLat, toLonLat} from 'ol/proj';
- 
 
+import proj4 from 'proj4';
+import {register} from 'ol/proj/proj4';
+import {get as getProjection} from 'ol/proj';
+
+ 
 var fun = require('./components/functions');
 var layers = require('./components/layers');
 var styles = require('./appearence/styles');
@@ -84,7 +89,10 @@ var addMarker = function(coordinates){
 
 
 
-
+// proj4.defs('EPSG:54027',
+//   '+proj=eqdc +lat_0=0 +lon_0=0 +lat_1=60 +lat_2=60 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs');
+// register(proj4);
+// const swissProjection = getProjection('EPSG:54027');
 
 
 var center = [60, 60]
@@ -101,27 +109,27 @@ var cur_lyr = layers.hs_lyr_group;
 const map = new Map({
   target: 'map',
   layers: [
-    // new TileLayer({
-    //   source: new OSM(),
-    // }),
+    new TileLayer({
+      source: new OSM()
+    }),
     // mbx,
     // layers.world_lyr,
     // layers.voronoy_lyr,
-    cur_lyr,
+    // cur_lyr,
     // layers.land_lyr,
     // layers.bnd_lyr,
-    // layers.coast_lyr,  +
-    // layers.city_lyr,  + 
+    layers.coast_lyr,
+    // layers.city_lyr,  
     // layers.geo_lines
     // layers.voronoy_lyr
   ],
   view: new View({
-    projection: prj,
+    projection: 'EPSG:4326',
     center: center,
     // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
     // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
     zoom: 4,
-    minZoom: 3,
+    minZoom: 0,
     maxZoom: 10
   })
 });

@@ -4,16 +4,15 @@ import VectorTileSource from 'ol/source/VectorTile.js';
 import GeoJSON from 'ol/format/GeoJSON';
 import TileJSON from 'ol/source/TileJSON.js';
 import OSM from 'ol/source/OSM';
-import MVT from 'ol/format/MVT.js';
+import MVT from 'ol/format/MVT';
 import WMTS from 'ol/source/WMTS';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import {Fill, Stroke, Icon, Style, Text, Circle} from 'ol/style';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import TileWMS from 'ol/source/TileWMS.js';
 import ImageWMS from 'ol/source/ImageWMS.js';
-
-
-
+import * as olTilegrid from 'ol/tilegrid';
+import {createXYZ} from 'ol/tilegrid';
 
 var styles  = require('../appearence/styles');
 var fun = require('./functions');
@@ -31,12 +30,41 @@ var gridNames = ['EPSG:4326:0', 'EPSG:4326:1', 'EPSG:4326:2', 'EPSG:4326:3', 'EP
 
 var resolutions = [0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625, 6.866455078125E-4, 3.4332275390625E-4, 1.71661376953125E-4, 8.58306884765625E-5, 4.291534423828125E-5, 2.1457672119140625E-5, 1.0728836059570312E-5, 5.364418029785156E-6, 2.682209014892578E-6, 1.341104507446289E-6, 6.705522537231445E-7, 3.3527612686157227E-7];
 
-function vt_source(host, name, epsg = 4326){
-  return new VectorTileSource({
-    format: new MVT(),
-    url: `http://${host}/gwc/service/tms/1.0.0/${name}@EPSG%3A${epsg}@pbf/{z}/{x}/{-y}.pbf`
-  })
+function vt_source(){
+  return new VectorTileLayer({
+    style: new Style({
+      stroke: new Stroke({
+        color: '#000000',
+        width: 0.5
+      })
+    }),
+    source: new VectorTileSource({
+      format: new MVT(),
+      projection: 'EPSG:4326',
+      url: 'http://localhost:8080/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=opengeo:hs_band&STYLE=&TILEMATRIX=EPSG:4326:5&TILEMATRIXSET=EPSG:4326&FORMAT=application/vnd.mapbox-vector-tile&&TILECOL={x}&TILEROW={y}'
+    })
+    })
 }
+
+
+var coast_lyr = vt_source()
+
+
+
+
+// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A900913@pbf/5/21/25.pbf
+// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A4326@pbf/19/262144/262144.pbf
+// new VectorTileLayer({
+//   source: new VectorTileS({
+//     tilePixelRatio: 1, // oversampling when > 1
+//     tileGrid: ol.tilegrid.createXYZ({maxZoom: 19}),
+//     format: new MVT(),
+//     url: '/geoserver/gwc/service/tms/1.0.0/' + layer +
+//         '@EPSG%3A'+projection_epsg_no+'@pbf/{z}/{x}/{-y}.pbf'
+//   })
+// })
+
+// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A900913@pbf/3/5/5.pbf
 
 // http://localhost:8080/geoserver/gwc/service/tms/1.0.0/$wavenergy:hs_band@EPSG%3A$epsg@pbf/{z}/{x}/{-y}.pbf
 
@@ -92,15 +120,18 @@ var land_lyr = new VectorLayer({
   source: vector_source(host, 'wavenergy:ne_10m_admin_0_boundary_lines_land', epsg)
 })
 
-var coast_lyr = new VectorLayer({
- style: new Style({
-   stroke: new Stroke({
-     color: '#000000',
-     width: 0.5
-   })
- }),
- source: vector_source(host, 'wavenergy:ne_10m_coastline', epsg),
-})
+// var coast_lyr = new VectorLayer({
+//  style: new Style({
+//    stroke: new Stroke({
+//      color: '#000000',
+//      width: 0.5
+//    })
+//  }),
+//  source: vector_source(host, 'wavenergy:ne_10m_coastline', epsg),
+// })
+
+
+
 
 // color crutch
 var hsr_colors = fun.get_colors(colorbrewer.OrRd, 0, 2.6, 0.2);
