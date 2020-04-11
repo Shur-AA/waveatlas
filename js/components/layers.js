@@ -18,8 +18,6 @@ var styles  = require('../appearence/styles');
 var fun = require('./functions');
 var colorbrewer = require('colorbrewer');
 
-// var styles = require('./styles.js');
-
 var epsg = 4326;
 
 var host = "localhost:8080/geoserver";
@@ -36,37 +34,68 @@ function vt_source(){
       stroke: new Stroke({
         color: '#000000',
         width: 0.5
+      }),
+      fill: new Fill({
+        color: 'steelblue'
       })
     }),
     source: new VectorTileSource({
       format: new MVT(),
-      projection: 'EPSG:4326',
-      url: 'http://localhost:8080/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=opengeo:hs_band&STYLE=&TILEMATRIX=EPSG:4326:5&TILEMATRIXSET=EPSG:4326&FORMAT=application/vnd.mapbox-vector-tile&&TILECOL={x}&TILEROW={y}'
+      projection: 'EPSG:3857',
+      dataProjection:'EPSG:32638',
+      // featureProjection: 'EPSG:4326',
+      
+      url: 'http://localhost:3456/public.esr_band/{z}/{x}/{y}.pbf'
     })
     })
 }
-
-
 var coast_lyr = vt_source()
 
+function vtile_source(lyr){
+  return new VectorTileSource({
+    format: new MVT(),
+    projection: 'EPSG:3857',
+    dataProjection:'EPSG:4326',
+    // featureProjection: 'EPSG:4326',
+    url: `http://localhost:3456/public.${lyr}/{z}/{x}/{y}.pbf`
+  })
+}
 
 
 
-// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A900913@pbf/5/21/25.pbf
-// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A4326@pbf/19/262144/262144.pbf
-// new VectorTileLayer({
-//   source: new VectorTileS({
-//     tilePixelRatio: 1, // oversampling when > 1
-//     tileGrid: ol.tilegrid.createXYZ({maxZoom: 19}),
-//     format: new MVT(),
-//     url: '/geoserver/gwc/service/tms/1.0.0/' + layer +
-//         '@EPSG%3A'+projection_epsg_no+'@pbf/{z}/{x}/{-y}.pbf'
-//   })
-// })
+var esr_lyr_group = new Group({
+  combine: true,
+  visible: true,
+  name: 'esr',
+  layers: [
+    new VectorTileLayer({
+      style: function(feature, resolution) {
+       var z = feature.get('z_mean');
+       console.log('Z= '+ z);
+       return new Style({
+          fill: new Fill({
+            color: fun.get_color(colorbrewer.YlGnBu, z, 0, 35, 2.5)
+          })
+        })
+      },
+      source: vtile_source('esr_band')
+    }),
+    new VectorTileLayer({
+      style: styles.cont_style,
+      source: vtile_source('esr_cont')
+    }),
+    new VectorTileLayer({
+      style: styles.cont_label_style,
+      declutter: true,
+      source: vtile_source('esr_cont')
+    }),
+  ]
+});
 
-// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/opengeo:hs_band@EPSG%3A900913@pbf/3/5/5.pbf
 
-// http://localhost:8080/geoserver/gwc/service/tms/1.0.0/$wavenergy:hs_band@EPSG%3A$epsg@pbf/{z}/{x}/{-y}.pbf
+
+
+
 
 function vector_source(host, name, epsg = 4326){
   return new VectorSource({
@@ -283,33 +312,33 @@ var psr_lyr_group = new Group({
   ]
 });
 
-var esr_lyr_group = new Group({
-  combine: true,
-  visible: true,
-  name: 'esr',
-  layers: [
-    new VectorLayer({
-      style: function(feature, resolution) {
-       var z = feature.get('Z_Mean');
-       return new Style({
-          fill: new Fill({
-            color: fun.get_color(colorbrewer.YlGnBu, z, 0, 35, 2.5)
-          })
-        })
-      },
-      source: vector_source(host, 'wavenergy:esr_band', epsg)
-    }),
-    new VectorLayer({
-      style: styles.cont_style,
-      source: vector_source(host, 'wavenergy:esr_cont', epsg)
-    }),
-    new VectorLayer({
-      declutter: true,
-      style: styles.cont_label_style,
-      source: vector_source(host, 'wavenergy:esr_cont', epsg)
-    })
-  ]
-});
+// var esr_lyr_group = new Group({
+//   combine: true,
+//   visible: true,
+//   name: 'esr',
+//   layers: [
+//     new VectorLayer({
+//       style: function(feature, resolution) {
+//        var z = feature.get('Z_Mean');
+//        return new Style({
+//           fill: new Fill({
+//             color: fun.get_color(colorbrewer.YlGnBu, z, 0, 35, 2.5)
+//           })
+//         })
+//       },
+//       source: vector_source(host, 'wavenergy:esr_band', epsg)
+//     }),
+//     new VectorLayer({
+//       style: styles.cont_style,
+//       source: vector_source(host, 'wavenergy:esr_cont', epsg)
+//     }),
+//     new VectorLayer({
+//       declutter: true,
+//       style: styles.cont_label_style,
+//       source: vector_source(host, 'wavenergy:esr_cont', epsg)
+//     })
+//   ]
+// });
 
 var osr_lyr_group = new Group({
   combine: true,

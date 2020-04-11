@@ -86,24 +86,16 @@ var addMarker = function(coordinates){
 }
 
 
+var center =  transform([45, 45], 'EPSG:4326', 'EPSG:3857');
+// var center = [60, 60];
+// var prj = new Projection({
+//   code: 'EPSG:4326',
+//   units: 'degrees',
+//   axisOrientation: 'neu'
+// });
 
 
-
-// proj4.defs('EPSG:54027',
-//   '+proj=eqdc +lat_0=0 +lon_0=0 +lat_1=60 +lat_2=60 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs');
-// register(proj4);
-// const swissProjection = getProjection('EPSG:54027');
-
-
-var center = [60, 60]
-var prj = new Projection({
-  code: 'EPSG:4326',
-  units: 'degrees',
-  axisOrientation: 'neu'
-});
-
-
-var cur_lyr = layers.hs_lyr_group;
+// var cur_lyr = layers.hs_lyr_group;
 
 
 const map = new Map({
@@ -118,17 +110,18 @@ const map = new Map({
     // cur_lyr,
     // layers.land_lyr,
     // layers.bnd_lyr,
-    layers.coast_lyr,
+    // layers.coast_lyr,
+    layers.esr_lyr_group
     // layers.city_lyr,  
     // layers.geo_lines
     // layers.voronoy_lyr
   ],
   view: new View({
-    projection: 'EPSG:4326',
+    projection: 'EPSG:3857',
     center: center,
     // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
     // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
-    zoom: 4,
+    zoom: 3,
     minZoom: 0,
     maxZoom: 10
   })
@@ -137,6 +130,7 @@ const map = new Map({
 var coordinate = 0;
 map.on('click', function(evt) {
   coordinate = evt.coordinate;
+  console.log(coordinate);
   addMarker(coordinate);
   var htbox = document.getElementsByClassName("tb-checkbox");
   htbox[0].checked = false;
