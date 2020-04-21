@@ -28,6 +28,7 @@ import {get as getProjection} from 'ol/proj';
  
 var fun = require('./components/functions');
 var layers = require('./components/layers');
+var baselayers = require('./components/base_layers');
 var styles = require('./appearence/styles');
 import * as tools from './components/maps_legend_builder';
 const colorbrewer = require('colorbrewer');
@@ -86,7 +87,7 @@ var addMarker = function(coordinates){
 }
 
 
-var center =  transform([45, 45], 'EPSG:4326', 'EPSG:3857');
+var center =  transform([100, 67], 'EPSG:4326', 'EPSG:3857');
 // var center = [60, 60];
 // var prj = new Projection({
 //   code: 'EPSG:4326',
@@ -101,9 +102,13 @@ var center =  transform([45, 45], 'EPSG:4326', 'EPSG:3857');
 const map = new Map({
   target: 'map',
   layers: [
-    new TileLayer({
-      source: new OSM()
-    }),
+    // new TileLayer({
+    //   source: new OSM()
+    // }),
+    baselayers.base110_lyr_group,
+    baselayers.base50_lyr_group,
+    baselayers.base10_lyr_group,
+    
     // mbx,
     // layers.world_lyr,
     // layers.voronoy_lyr,
@@ -111,7 +116,7 @@ const map = new Map({
     // layers.land_lyr,
     // layers.bnd_lyr,
     // layers.coast_lyr,
-    layers.esr_lyr_group
+    // layers.esr_lyr_group
     // layers.city_lyr,  
     // layers.geo_lines
     // layers.voronoy_lyr
@@ -122,8 +127,8 @@ const map = new Map({
     // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
     // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
     zoom: 3,
-    minZoom: 0,
-    maxZoom: 10
+    // minZoom: 0,
+    // maxZoom: 10
   })
 });
 
