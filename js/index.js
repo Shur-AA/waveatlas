@@ -20,10 +20,11 @@ import $ from 'jquery';
 import {Fill, Stroke, Icon, Style, Text, Circle} from 'ol/style';
 import {toStringHDMS} from 'ol/coordinate';
 import {fromLonLat, toLonLat} from 'ol/proj';
+import {get as getProjection, getTransform} from 'ol/proj';
 
 import proj4 from 'proj4';
 import {register} from 'ol/proj/proj4';
-import {get as getProjection} from 'ol/proj';
+// import {get as getProjection} from 'ol/proj';
 
  
 var fun = require('./components/functions');
@@ -87,8 +88,8 @@ var addMarker = function(coordinates){
 }
 
 
-var center =  transform([100, 67], 'EPSG:4326', 'EPSG:3857');
-// var center = [60, 60];
+// var center =  transform([100, 67], 'EPSG:4326', 'EPSG:3857');
+var center = [60, 60];
 // var prj = new Projection({
 //   code: 'EPSG:4326',
 //   units: 'degrees',
@@ -99,38 +100,75 @@ var center =  transform([100, 67], 'EPSG:4326', 'EPSG:3857');
 // var cur_lyr = layers.hs_lyr_group;
 
 
-const map = new Map({
-  target: 'map',
+
+
+// EXPERIMENT WITH PROJECTION *****************************************
+proj4.defs("EPSG:9822","+proj=aea +lat_0=30 +lon_0=100 +lat_1=15 +lat_2=65 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+
+proj4.defs('EPSG:3413', '+proj=stere +lat_0=70 +lat_ts=45 +lon_0=100 +k=1+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
+proj4.defs('EPSG:54027', '+proj=eqdc +lat_0=0 +lon_0=100 +lat_1=46.4 +lat_2=71.8 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs');
+register(proj4);
+var test_coordinate = transform([100,70], 'EPSG:4326', 'EPSG:54027');
+console.log('test_coords' + test_coordinate);
+
+// var extent = [-5000000, 1512900, 5000000, 7000000];
+var extent = [-5500000, -5000000, 5000000, 5000000];
+var projection = getProjection("EPSG:3413");
+console.log(projection);
+projection.setExtent(extent);
+
+var center9822 = transform([100,70], 'EPSG:4326', 'EPSG:3413')
+
+var map = new Map({
   layers: [
-    // new TileLayer({
-    //   source: new OSM()
-    // }),
-    baselayers.base110_lyr_group,
-    baselayers.base50_lyr_group,
-    baselayers.base10_lyr_group,
-    
-    // mbx,
-    // layers.world_lyr,
-    // layers.voronoy_lyr,
-    // cur_lyr,
-    // layers.land_lyr,
-    // layers.bnd_lyr,
-    // layers.coast_lyr,
-    // layers.esr_lyr_group
-    // layers.city_lyr,  
-    // layers.geo_lines
-    // layers.voronoy_lyr
-  ],
+        new TileLayer({
+          source: new OSM()
+        }),
+        layers.russia110_lyr,
+      ],
+  target: 'map',
   view: new View({
-    projection: 'EPSG:3857',
-    center: center,
-    // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
-    // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
-    zoom: 3,
-    // minZoom: 0,
-    // maxZoom: 10
+    projection: projection,
+    center: center9822,
+    zoom: 2
   })
 });
+
+// END EXPERIMENT *******************************************8888
+
+// const map = new Map({
+//   target: 'map',
+//   layers: [
+//     new TileLayer({
+//       source: new OSM()
+//     }),
+//     // baselayers.base110_lyr_group,
+//     // baselayers.base50_lyr_group,
+//     // baselayers.base10_lyr_group,
+//     layers.russia110_lyr
+    
+//     // mbx,
+//     // layers.world_lyr,
+//     // layers.voronoy_lyr,
+//     // cur_lyr,
+//     // layers.land_lyr,
+//     // layers.bnd_lyr,
+//     // layers.coast_lyr,
+//     // layers.esr_lyr_group
+//     // layers.city_lyr,  
+//     // layers.geo_lines
+//     // layers.voronoy_lyr
+//   ],
+//   view: new View({
+//     projection: 'EPSG:4326',
+//     center: center,
+//     // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
+//     // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
+//     zoom: 3,
+//     // minZoom: 0,
+//     // maxZoom: 10
+//   })
+// });
 
 var coordinate = 0;
 map.on('click', function(evt) {
@@ -435,7 +473,7 @@ function ready(){
   drawMapName('МАКСИМАЛЬНАЯ ВЫСОТА ЗНАЧИТЕЛЬНЫХ ВОЛН, [М]');
 
   var cur_var = layers.hs_lyr_group;
-  console.log(cur_var)
+  // console.log(cur_var)
   const lili = document.getElementsByClassName('uk-dropdown-nav');
   lili[0].addEventListener('click', function(event) {
       event.preventDefault();

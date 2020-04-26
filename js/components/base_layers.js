@@ -90,6 +90,7 @@ var base50_lyr_group = new Group({
     new VectorTileLayer({
       style: function(feature){
         name = feature.get('name_ru');
+        var style = styles.city_style(name);
         return style;
       },
       source: vtile_source('base_50m_cities'),

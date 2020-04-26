@@ -13,6 +13,13 @@ import TileWMS from 'ol/source/TileWMS.js';
 import ImageWMS from 'ol/source/ImageWMS.js';
 import * as olTilegrid from 'ol/tilegrid';
 import {createXYZ} from 'ol/tilegrid';
+// import transform from 'ol/proj.js';
+import {transform, Projection} from 'ol/proj.js';
+import {get as getProjection, getTransform} from 'ol/proj';
+import proj4 from 'proj4';
+// import proj4 from 'ol/proj/proj4';
+import {register} from 'ol/proj/proj4';
+import {getWidth, getTopLeft} from 'ol/extent';
 
 var styles  = require('../appearence/styles');
 var fun = require('./functions');
@@ -28,6 +35,24 @@ var gridNames = ['EPSG:4326:0', 'EPSG:4326:1', 'EPSG:4326:2', 'EPSG:4326:3', 'EP
 
 var resolutions = [0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625, 6.866455078125E-4, 3.4332275390625E-4, 1.71661376953125E-4, 8.58306884765625E-5, 4.291534423828125E-5, 2.1457672119140625E-5, 1.0728836059570312E-5, 5.364418029785156E-6, 2.682209014892578E-6, 1.341104507446289E-6, 6.705522537231445E-7, 3.3527612686157227E-7];
 
+
+var gj = new VectorLayer({
+  source: new VectorSource({
+      format: new GeoJSON(),
+      // dataProjection: 'EPSG:4326',
+      projection: 'EPSG:4326',
+      url: 'https://shur-aa.github.io/LazoZMU/textdata/ttttttt.geojson'
+  }),
+  style: new Style({
+    stroke: new Stroke({
+      color: 'red',
+      width: 1
+    })
+  })
+});
+
+// console.log(JSON.stringify(gj));
+
 function vt_source(){
   return new VectorTileLayer({
     style: new Style({
@@ -41,8 +66,8 @@ function vt_source(){
     }),
     source: new VectorTileSource({
       format: new MVT(),
-      projection: 'EPSG:3857',
-      dataProjection:'EPSG:32638',
+      // projection: 'EPSG:3857',
+      // dataProjection:'EPSG:32638',
       // featureProjection: 'EPSG:4326',
       
       url: 'http://localhost:3456/public.esr_band/{z}/{x}/{y}.pbf'
@@ -60,6 +85,15 @@ function vtile_source(lyr){
     url: `http://localhost:3456/public.${lyr}/{z}/{x}/{y}.pbf`
   })
 }
+
+
+// TEST ************************8
+
+// TEST END ********************8
+
+
+
+
 
 
 
@@ -561,15 +595,17 @@ var city_lyr = new VectorLayer({
   declutter: true
 });
 
-// var voronoy_src = new ImageWMS({
-//   url: 'http://localhost:8080/geoserver/wavenergy/wms?service=WMS',
-//   params: {'LAYERS': 'wavenergy:all_voronoy', 'TILED': true},
-//   serverType: 'geoserver',
-//   crossOrigin: 'anonymous'
-// });
-// var voronoy_lyr = new Image({
-//   source: voronoy_src
-// });
+
+var russia110_src = new TileWMS({
+  url: 'http://localhost:8080/geoserver/wavenergy/wms?service=WMS',
+  params: {'LAYERS': 'wavenergy:base_110m_russia', 'TILED': true},
+  serverType: 'geoserver',
+  crossOrigin: 'anonymous',
+  projection: 'EPSG:4326'
+});
+var russia110_lyr = new TileLayer({
+  source: russia110_src,
+});
 
 var wmsSource = new TileWMS({
   url: 'http://localhost:8080/geoserver/wavenergy/wms?service=WMS',
@@ -605,5 +641,7 @@ module.exports = {
   wind_spd_50c_lyr_group,
   wind_spd_100c_lyr_group,
   wmsSource,
+  gj,
+  russia110_lyr,
   // wmsLayer
 }
