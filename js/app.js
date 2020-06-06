@@ -54,13 +54,13 @@ function fillFullSupply(p, en, wl, hs, ind){
 
 function rosedata(lat, lon){
   wind = "'wind'"
-  let request = 'select "vls" from blackchart where "latitude" = ' + lat + ' and "longitude" = ' + lon + 'and "season" =' + wind;
+  let request = 'select "vls" from blackchart where "latitude" = ' + lat + ' and "longitude" = ' + lon + ' and "season" = ' + wind;
   console.log('Query string from function: ' + request);
   return request;
 }
 
 function freqdata(lat, lon, ht){
-  let request = 'select "vls", "season" from blackchart where "latitude" = ' + lat + ' and "longitude" = ' + lon + 'and "height" =' + ht;
+  let request = 'select "vls", "season" from blackchart where "latitude" = ' + lat + ' and "longitude" = ' + lon + ' and "height" = ' + ht;
   console.log('Query string from function: ' + request);
   return request;
 }

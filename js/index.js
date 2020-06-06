@@ -29,7 +29,8 @@ import {register} from 'ol/proj/proj4';
  
 var fun = require('./components/functions');
 var layers = require('./components/layers');
-var baselayers = require('./components/base_layers');
+var baselayerWMS = require('./components/base_layers_wms');
+var baseWFSWMS = require('./components/base_layers_wfs');
 var styles = require('./appearence/styles');
 import * as tools from './components/maps_legend_builder';
 const colorbrewer = require('colorbrewer');
@@ -89,7 +90,7 @@ var addMarker = function(coordinates){
 
 
 // var center =  transform([100, 67], 'EPSG:4326', 'EPSG:3857');
-var center = [60, 60];
+var center = [97, 63];
 // var prj = new Projection({
 //   code: 'EPSG:4326',
 //   units: 'degrees',
@@ -103,72 +104,67 @@ var center = [60, 60];
 
 
 // EXPERIMENT WITH PROJECTION *****************************************
-proj4.defs("EPSG:9822","+proj=aea +lat_0=30 +lon_0=100 +lat_1=15 +lat_2=65 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
 
-proj4.defs('EPSG:3413', '+proj=stere +lat_0=70 +lat_ts=45 +lon_0=100 +k=1+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
-proj4.defs('EPSG:54027', '+proj=eqdc +lat_0=0 +lon_0=100 +lat_1=46.4 +lat_2=71.8 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs');
-register(proj4);
-var test_coordinate = transform([100,70], 'EPSG:4326', 'EPSG:54027');
-console.log('test_coords' + test_coordinate);
+// // равновеликая коническая Альберса с параметрами Витковского
+// proj4.defs("EPSG:9822","+proj=aea +lat_0=59 +lon_0=108 +lat_1=52.5 +lat_2=78.2 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+// // равновеликая азимутальная Ламберта
+// proj4.defs('EPSG:9820', '+proj=laea +lat_0=69 +lon_0=96 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+// register(proj4);
+// var test_coordinate = transform([100,40], 'EPSG:4326', 'EPSG:9820');
+// console.log('test_coords ' + test_coordinate);
 
 // var extent = [-5000000, 1512900, 5000000, 7000000];
-var extent = [-5500000, -5000000, 5000000, 5000000];
-var projection = getProjection("EPSG:3413");
-console.log(projection);
-projection.setExtent(extent);
+// var extent = [-5500000, -5000000, 5000000, 5000000];
+// var projection = getProjection("EPSG:9820");
+// console.log(projection);
+// // projection.setExtent(extent);
 
-var center9822 = transform([100,70], 'EPSG:4326', 'EPSG:3413')
+// var center9822 = transform([97,63], 'EPSG:4326', 'EPSG:9820')
 
-var map = new Map({
-  layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        layers.russia110_lyr,
-      ],
-  target: 'map',
-  view: new View({
-    projection: projection,
-    center: center9822,
-    zoom: 2
-  })
-});
+// var map = new Map({
+//   layers: [
+//         // new TileLayer({
+//         //   source: new OSM()
+//         // }),
+//         // layers.gebco_lyr,
+//         baselayerWMS.hs_lyr, 
+//         // baselayerWMS.wms_base110_lyr_group,
+//         baselayerWMS.wms_base50_lyr_group,
+        
+//       ],
+//   target: 'map',
+//   view: new View({
+//     // projection: projection,
+//     center: center9822,
+//     projection: 'EPSG:9820',
+//     // center: [97,63],
+//     zoom: 4
+//   })
+// });
 
 // END EXPERIMENT *******************************************8888
 
-// const map = new Map({
-//   target: 'map',
-//   layers: [
-//     new TileLayer({
-//       source: new OSM()
-//     }),
-//     // baselayers.base110_lyr_group,
-//     // baselayers.base50_lyr_group,
-//     // baselayers.base10_lyr_group,
-//     layers.russia110_lyr
-    
-//     // mbx,
-//     // layers.world_lyr,
-//     // layers.voronoy_lyr,
-//     // cur_lyr,
-//     // layers.land_lyr,
-//     // layers.bnd_lyr,
-//     // layers.coast_lyr,
-//     // layers.esr_lyr_group
-//     // layers.city_lyr,  
-//     // layers.geo_lines
-//     // layers.voronoy_lyr
-//   ],
-//   view: new View({
-//     projection: 'EPSG:4326',
-//     center: center,
-//     // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
-//     // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
-//     zoom: 3,
-//     // minZoom: 0,
-//     // maxZoom: 10
-//   })
-// });
+const map = new Map({
+  target: 'map',
+  layers: [
+    // new TileLayer({
+    //   source: new OSM()
+    // }),
+    baseWFSWMS.gebco_lyr,
+    baseWFSWMS.base110_lyr_group,
+    baseWFSWMS.base50_lyr_group,
+    baseWFSWMS.base10_lyr_group
+  ],
+  view: new View({
+    projection: 'EPSG:4326',
+    center: center,
+    // center: transform([40, 60], 'EPSG:4326', 'ESRI:54003'),
+    // extent: transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'ESRI:54003'),
+    zoom: 3,
+    // minZoom: 0,
+    // maxZoom: 10
+  })
+});
 
 var coordinate = 0;
 map.on('click', function(evt) {

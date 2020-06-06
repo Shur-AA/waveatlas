@@ -59,7 +59,7 @@ function cont_label_style(feature, resolution) {
 function country_style() {
   return new Style({
     stroke: new Stroke({
-      color: 'silver',
+      color: '#A6ACAF',
       width: 0.5
     }),
     fill: new Fill({
@@ -81,7 +81,7 @@ function coastline_style() {
   return new Style({
     stroke: new Stroke({
       color: 'steelblue',
-      width: 1.5
+      width: 1.2
     })
   })
 }
@@ -89,8 +89,8 @@ function coastline_style() {
 function river_style() {
   return new Style({
     stroke: new Stroke({
-      color: 'steelblue',
-      width: 0.5
+      color: '#B9DDE9',
+      width: 0.6
     })
   })
 }
@@ -123,7 +123,7 @@ function city_style(label) {
       text: label,
       font: '10px Open Sans,sans-serif',
       fill: new Fill({
-        color: 'slategray'
+        color: '#34495E'
       }),
       offsetY: -8,
       offsetX: 10
@@ -131,18 +131,23 @@ function city_style(label) {
   })
 }
 
-function port_style() {
+function port_style(label) {
   return new Style({
-    image: new Circle({
-      radius: 2,
+    image: new Icon({
+      anchor: [0, 0],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      src: 'https://shur-aa.github.io/LazoZMU/img/anchor.png'
+    }),
+    text: new Text({
+      text: label,
+      font: 'italic 10px Open Sans,sans-serif',
       fill: new Fill({
-        color: 'pink',
+        color: '#34495E'
       }),
-      stroke: new Stroke({
-        color: 'rgba(0,0,0,1)',
-        width: 0.5
-      })
-    })
+      offsetY: -8,
+      offsetX: 10
+    }),
   })
 }
 

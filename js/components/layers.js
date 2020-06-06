@@ -139,15 +139,17 @@ function vector_source(host, name, epsg = 4326){
 }
 
 
-var bnd_lyr = new VectorLayer({
-   style: new Style({
-     stroke: new Stroke({
-       color: '#888888',
-       width: 0.5
-     })
-   }),
-   source: vector_source(host, 'wavenergy:ne_10m_admin_0_countries')
-})
+
+
+// var bnd_lyr = new VectorLayer({
+//    style: new Style({
+//      stroke: new Stroke({
+//        color: '#888888',
+//        width: 0.5
+//      })
+//    }),
+//    source: vector_source(host, 'wavenergy:ne_10m_admin_0_countries')
+// })
 
 var geo_lines = new VectorLayer({
     style: new Style({
@@ -182,18 +184,6 @@ var land_lyr = new VectorLayer({
   }),
   source: vector_source(host, 'wavenergy:ne_10m_admin_0_boundary_lines_land', epsg)
 })
-
-// var coast_lyr = new VectorLayer({
-//  style: new Style({
-//    stroke: new Stroke({
-//      color: '#000000',
-//      width: 0.5
-//    })
-//  }),
-//  source: vector_source(host, 'wavenergy:ne_10m_coastline', epsg),
-// })
-
-
 
 
 // color crutch
@@ -596,15 +586,13 @@ var city_lyr = new VectorLayer({
 });
 
 
-var russia110_src = new TileWMS({
-  url: 'http://localhost:8080/geoserver/wavenergy/wms?service=WMS',
-  params: {'LAYERS': 'wavenergy:base_110m_russia', 'TILED': true},
-  serverType: 'geoserver',
-  crossOrigin: 'anonymous',
+var gebco = new TileWMS({
+  url: 'https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?',
+  params: {'LAYERS': 'GEBCO_LATEST', 'TILED': true},
   projection: 'EPSG:4326'
 });
-var russia110_lyr = new TileLayer({
-  source: russia110_src,
+var gebco_lyr = new TileLayer({
+  source: gebco,
 });
 
 var wmsSource = new TileWMS({
@@ -623,7 +611,7 @@ module.exports = {
   world_lyr,
   hs_lyr_group,
   land_lyr,
-  bnd_lyr,
+  // bnd_lyr,
   coast_lyr,
   city_lyr,
   geo_lines,
@@ -642,6 +630,6 @@ module.exports = {
   wind_spd_100c_lyr_group,
   wmsSource,
   gj,
-  russia110_lyr,
+  gebco_lyr,
   // wmsLayer
 }

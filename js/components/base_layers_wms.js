@@ -32,7 +32,53 @@ function vtile_source(lyr){
   })
 }
 
+function wmstile_source(lyr){
+  return new TileLayer({
+    source: new TileWMS({
+      url: 'http://localhost:8080/geoserver/wavenergy/wms?service=WMS',
+      params: {'LAYERS': 'wavenergy:' + lyr, 'TILED': true},
+      serverType: 'geoserver',
+      crossOrigin: 'anonymous',
+      projection: 'EPSG:4326'
+    })
+  });
+}
 
+var hs_lyr = new Group({
+  combine: true,
+  visible: true,
+  // maxZoom: 2,
+  name: 'hs_lyr',
+  layers: [
+    wmstile_source('hs_band')
+  ]
+});
+
+var wms_base110_lyr_group = new Group({
+  combine: true,
+  visible: true,
+  maxZoom: 2,
+  name: '110m',
+  layers: [
+    wmstile_source('base_110m_russia'),
+    wmstile_source('base_110m_countries'),
+    wmstile_source('base_110m_coastline')
+  ]
+});
+
+
+var wms_base50_lyr_group = new Group({
+  combine: true,
+  visible: true,
+  // minZoom: 2,
+  // maxZoom: 5,
+  name: '50m',
+  layers: [
+    wmstile_source('base_50m_russia'),
+    wmstile_source('base_50m_countries'),
+    wmstile_source('base_50m_coastline'),
+  ]
+});
 
 var base110_lyr_group = new Group({
   combine: true,
@@ -143,7 +189,7 @@ var base10_lyr_group = new Group({
 
 
 module.exports = {
-  base110_lyr_group,
-  base50_lyr_group,
-  base10_lyr_group
+  wms_base110_lyr_group,
+  wms_base50_lyr_group,
+  hs_lyr
 }

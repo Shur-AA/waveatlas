@@ -4,7 +4,7 @@ var Service = require('node-windows').Service;
 var svc = new Service({
   name:'Wavenergy service',
   description: 'The nodejs wevenergy web server',
-  script: 'E:/Atlas/js/app.js',
+  script: 'P:/Atlas/js/app.js',
   nodeOptions: [
     '--harmony',
     '--max_old_space_size=4096'
