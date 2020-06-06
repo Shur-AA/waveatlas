@@ -98,7 +98,7 @@ var center = [97, 63];
 // });
 
 
-// var cur_lyr = layers.hs_lyr_group;
+var cur_lyr = layers.hs_lyr_group;
 
 
 
@@ -150,10 +150,11 @@ const map = new Map({
     // new TileLayer({
     //   source: new OSM()
     // }),
-    baseWFSWMS.gebco_lyr,
+    // baseWFSWMS.gebco_lyr,
     baseWFSWMS.base110_lyr_group,
     baseWFSWMS.base50_lyr_group,
-    baseWFSWMS.base10_lyr_group
+    baseWFSWMS.base10_lyr_group,
+    layers.hs_lyr_group
   ],
   view: new View({
     projection: 'EPSG:4326',
@@ -450,7 +451,7 @@ $("#energy_input").on('change', e => {
 
 $("#greater_less4").on('change', e => {
   var v = document.getElementById("hsigsup_value").innerHTML;
-  v = Number((100 - parseFloat(v)).toFixed(1))
+  v = Number((100 - parseFloat(v)).toFixed(1));
   document.getElementById("hsigsup_value").innerHTML = v + ' %';
   }
 );
@@ -460,7 +461,9 @@ $("#greater_less4").on('change', e => {
 // ********************SUPPLY TABLE CHANGE END************************
 
 function ready(){
+  console.log('Function ready start');
   function drawMapName(intext){
+      console.log('Function drow map name start')
       const mapname = document.getElementsByClassName('curchoice');
       mapname[0].textContent = intext;
   };

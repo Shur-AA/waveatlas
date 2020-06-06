@@ -28,34 +28,90 @@
     <div class="wrapper">
         <div class="wrapper__container">
             <header class="header">
-                <div class="uk-inline">
-                    <button id="menu" class="uk-button uk-button-text" type="button">Выбрать карту</button>
-                    <div uk-dropdown="mode: click" style="position: absolute;">
-                        <ul id="dropdown-nav" class="uk-nav uk-dropdown-nav">
-                            <li class="uk-nav-header">волны</li>
-                            <li class="uk-nav-divider"></li>
-                            <li id="hs" class="uk-active"><a href="#">Максимальная высота значительных волн, [м]</a>
-                            </li>
-                            <li id="h3p"><a href="#">Максимальная высота волн (3%), [м]</a></li>
-                            <li id="hsr"><a href="#">Средняя высота волн, [м]</a></li>
-                            <li id="esr"><a href="#">Средняя энергия волн, [кВт/м]</a></li>
-                            <li id="lsr"><a href="#">Средняя длина волн, [м]</a></li>
-                            <li id="psr"><a href="#">Средний период волн, [с]</a></li>
-                            <li id="osr"><a href="#">Обеспеченность >1 кВт, [%]</a></li>
-                            <li class="uk-nav-header">ветер — сетка</li>
-                            <li class="uk-nav-divider"></li>
-                            <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м,
-                                    [Вт/кв.м]</a></li>
-                            <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м,
-                                    [Вт/кв.м]</a></li>
-                            <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с]</a></li>
-                            <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с]</a></li>
-                        </ul>
+                <article class="dropdowns">
+                    <div class="uk-inline">
+                        <button id="menu" class="uk-button uk-button-text" type="button">Выбрать карту</button>
+                        <div uk-dropdown="mode: click" style="position: absolute;">
+                            <ul id="dropdown-nav" class="uk-nav uk-dropdown-nav">
+                                <li class="uk-nav-header">волны</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id="hs" class="uk-active"><a href="#">Максимальная высота значительных волн, [м]</a>
+                                </li>
+                                <li id="h3p"><a href="#">Максимальная высота волн (3%), [м]</a></li>
+                                <li id="hsr"><a href="#">Средняя высота волн, [м]</a></li>
+                                <li id="esr"><a href="#">Средняя энергия волн, [кВт/м]</a></li>
+                                <li id="lsr"><a href="#">Средняя длина волн, [м]</a></li>
+                                <li id="psr"><a href="#">Средний период волн, [с]</a></li>
+                                <li id="osr"><a href="#">Обеспеченность >1 кВт, [%]</a></li>
+                                <li class="uk-nav-header">ветер — сетка</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id="wind_grp_50c"><a href="#">Валовый потенциал ветровой энергии на высоте 50 м,
+                                        [Вт/кв.м]</a></li>
+                                <li id="wind_grp_100c"><a href="#">Валовый потенциал ветровой энергии на высоте 100 м,
+                                        [Вт/кв.м]</a></li>
+                                <li id="wind_spd_50c_year"><a href="#">Скорость ветра на высоте 50 м, [м/с]</a></li>
+                                <li id="wind_spd_100c_year"><a href="#">Скорость ветра на высоте 100 м, [м/с]</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="curchoice"></div>
-                <div id="legendplace"></div>
+                    <div class="uk-inline">
+                        <button id="sea_menu" class="uk-button uk-button-text" type="button">Выбрать море</button>
+                        <div uk-dropdown="mode: click">
+                            <ul id="dropdown-nav" class="uk-nav uk-dropdown-nav">
+                                <li class="uk-nav-header">моря северного ледовитого океана</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id=""><a href="#">Баренцево</a></li>
+                                <li id=""><a href="#">Белое</a></li>
+                                <!-- <li id=""><a href="#">Восточно-Сибирское</a></li> -->
+                                <li id=""><a href="#">Карское </a></li>
+                                <!-- <li id=""><a href="#">Море Лаптевых</a></li> -->
+                                <!-- <li id=""><a href="#">Чукотское</a></li> -->
+                                <li class="uk-nav-header">моря тихого океана</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id=""><a href="#">Берингово</a></li>
+                                <li id=""><a href="#">Охотское</a></li>
+                                <li id=""><a href="#">Японское</a></li>
+                                <li class="uk-nav-header">моря атлантического океана</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id=""><a href="#">Азовское</a></li>
+                                <li id=""><a href="#">Балтийское</a></li>
+                                <li id=""><a href="#">Чёрное</a></li>
+                                <li class="uk-nav-header">внутренние моря</li>
+                                <li class="uk-nav-divider"></li>
+                                <li id=""><a href="#">Каспийское</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="name_legend">
+                    <div class="curchoice"></div>
+                    <div id="legendplace"></div>
+                </article>
+                
+                <article class="global_control_butt">
+                    <button id="timedatabut" class="gcb">
+                        <!-- <i class="fa fa-flask" aria-hidden="true"></i> -->
+                        <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
+                        <!-- <i class="fa fa-table" aria-hidden="true"></i> -->
+                        <!-- <i class="fa fa-area-chart" aria-hidden="true"></i> -->
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                    </button>
+                    <button id="clear_selection" class="gcb">
+                        <!-- <i class="fa fa-crosshairs" aria-hidden="true"></i> -->
+                        <i class="fa fa-eraser" aria-hidden="true"></i>
+                    </button>
+                    <button id="project_info_butt" class="gcb">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-lightbulb-o" aria-hidden="true"></i> -->
+                    </button>
+                </article>
             </header>
+
+<!--для графиков-->
+<!-- <i class="fa fa-window-restore" aria-hidden="true"></i> -->
+<!-- <i class="fa fa-window-minimize" aria-hidden="true"></i> -->
+
 
 
             <section id="map"></section>
@@ -64,8 +120,8 @@
                     <article class="rose-graphic">
                         <div id="rose-graphic"></div>
                         <div class="control_butt">
-                            <i class="fa fa-times-circle" uk-tooltip="title:Скрыть график; pos: right; offset: 4"></i>
-                            <i class="fa fa-info-circle"
+                            <i class="fa fa-window-minimize" uk-tooltip="title:Свернуть график; pos: right; offset: 4"></i>
+                            <i class="fa fa-info graph-info"
                                 uk-tooltip="title:Роза-диаграмма повторяемости направлений ветра; pos: right; offset: 4"></i>
                         </div>
                     </article>
@@ -73,8 +129,8 @@
                     <article class="freq-graphic">
                         <div id="freq-graphic"></div>
                         <div class="control_butt">
-                            <i class="fa fa-times-circle" uk-tooltip="title:Скрыть график; pos: right; offset: 4"></i>
-                            <i class="fa fa-info-circle"
+                            <i class="fa fa-window-minimize" uk-tooltip="title:Свернуть график; pos: right; offset: 4"></i>
+                            <i class="fa fa-info graph-info"
                                 uk-tooltip="title:Гистограмма повторяемости скоростей ветра; pos: right; offset: 4"></i>
                             <!-- toggle button     -->
                             <div class="tb-row">
@@ -95,7 +151,7 @@
                 </div>
                 <article class="ww-table" style="font-size: 13px;">
                     <div class="control_butt">
-                        <i class="fa fa-times-circle" uk-tooltip="title:Скрыть таблицу; pos: right; offset: 4"></i>
+                        <i class="fa fa-window-minimize" uk-tooltip="title:Свернуть таблицу; pos: right; offset: 4"></i>
                     </div>
                     <table class="uk-table uk-table-responsive">
                         <caption style="padding-right: 5px;">Параметры волн</caption>
@@ -141,12 +197,6 @@
                     </table>
 
 
-                </article>
-            </section>
-            <section class="timedata">
-                <article class="buttom_place">
-                    <button id="timedatabut" class="uk-button uk-button-default">Многовременные данные</button>
-                    <button id="clear_selection" class="uk-button uk-button-default">Очистить выборку</button>
                 </article>
             </section>
             <section class="table_place">

@@ -32,28 +32,28 @@ function cont_style(feature, resolution) {
 
 function cont_label_style(feature, resolution) {
   var idx = feature.get('index');
-  var z = fun.round(feature.get('z'), 1);
-  console.log('style z ' + z);
-  var len = feature.get('shape_leng');
-  console.log('style len ' + len);
+  var z = fun.round(feature.get('Z'),1);
+  var len = feature.get('Shape_Length');
+ 
   var fontstyle = (idx == 1) ? 'bold 14px' : '13px'
-
-  //  if (len > 5e-1 * resolution) {
-  return new Style({
-    text: new Text({
-      text: z.toString(),
-      font: `${fontstyle} "Open Sans", "Arial", "sans-serif"`,
-      placement: 'line',
-      fill: new Fill({
-        color: '#000058'
-      }),
-      stroke: new Stroke({
-        color: fun.get_color(colorbrewer.YlGnBu, z, 0, 35, 2.5),
-        width: 6
+ 
+  if (len > 5e-1 * resolution) {
+    return new Style({
+      text: new Text({
+        text : z.toString(),
+        font: `${fontstyle} "Open Sans", "Arial", "sans-serif"`,
+        placement: 'line',
+        fill: new Fill({
+          color: 'black'
+        }),
+        stroke: new Stroke({
+          color: 'white',
+          width: 1
+        })
       })
-    })
-  });
-}
+    });
+  }
+ }
 // }
 
 function country_style() {

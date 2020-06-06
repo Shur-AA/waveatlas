@@ -4,41 +4,79 @@
     margin-bottom: auto;
     overflow:hidden;
     flex: 1;
-    background-color: linen;
+    background-color: #D9E5EA;
 }
 
 
 .header {
     width: 100%;
     background-color: aliceblue;
-    min-height: 50px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
-    
 }
 
-#menu {
-    margin-left: 30px;
-    padding: 10px 0;
+.dropdowns{
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+#sea_menu {
+    margin-left: 4px;
+}
+
+.name_legend{
+  flex-grow: 2;
+  flex-shrink: 1;
+  flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .curchoice {
-    font-weight: bold;
-    color: black;
-    text-transform: uppercase;
-    margin: 0 30px;
-    padding: 10px 0;
-    max-width: 40%;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  margin: 0 3px;
+  padding: 3px 0;
+  text-align: center;
+  height: 12px;
 }
 
 #legendplace {
-    margin: 0 30px;
-    height: 50px;
-    /* width: 200px; */
-    align-items: center;
-    /* border: solid 1px steelblue; */
+  text-align: center;
+  align-items: center;
+  height: 50px;
+  margin-top: -2;
+}
+
+.global_control_butt{
+  flex-grow: 1;
+  flex-shrink: 5;
+  flex-basis: 150px;
+  margin: 0 6px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.gcb{
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
+  color: white;
+  background-color: steelblue;
+  border: none;
+  border-radius: 2px;
 }
 
 .rose-graphic, .freq-graphic, .ww-table {
@@ -59,16 +97,47 @@
 
 .control_butt {
     position: absolute;
-    top: 6px;
-    left: 7px;
+    top: 2px;
+    left: 2px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
 }
 
 
+.fa-window-minimize{
+  border: solid 1px steelblue;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  color: steelblue;
+  border-radius: 1.5px;
+  font-size: 15;
+}
+
+.fa-window-minimize:hover{
+  color: black;
+  border-color: black;
+}
+
+.graph-info:hover{
+  color: black;
+  border-color: black;
+}
+
+.graph-info{
+  border: solid 1px steelblue;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  text-align: center;
+  color: steelblue;
+  border-radius: 1.5px;
+  padding-top: 2px;
+}
+
 .fa-times-circle, .fa-info-circle {
-    color: lightsteelblue;
+    color: steelblue;
     font-size: 20px;
 }
 
@@ -238,12 +307,6 @@
     box-shadow: 0 0 12px whitesmoke;
 }
 
-.timedata {
-    position: absolute;
-    left: 47px;
-    top: 55px;
-}
-
 .table_place { 
     position: absolute;
     right: 10%;
@@ -303,6 +366,65 @@
 
 .uk-button-default {
     background-color: white !important;
+}
+
+
+@media screen and (max-width: 977px) and (min-width: 813px){
+  .header{
+    align-items: flex-start;
+  }
+  .dropdowns{
+    justify-content: flex-start;
+  }
+  .gcb{
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 1px;
+    margin-left: 15px;
+  }
+  .global_control_butt{
+    position: absolute;
+    left: 0;
+    top: 50px
+  }
+  #menu {
+    margin-left: 21px;
+  }
+  #sea_menu {
+    margin-left: 21px;
+  }
+  .curchoice {
+    font-size: 15px;
+    height: 20px;
+    padding-top: 9px;
+  }
+}
+
+
+@media screen and (max-width: 813px){
+  .name_legend{
+    order: 5;
+  }
+  .gcb{
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 1px;
+    margin-left: 15px;
+    margin: 2px 0;
+  }
+  .curchoice {
+    font-size: 14px;
+  }
+}
+
+
+
+@media screen and (max-width: 450px){
+  .curchoice {
+    font-size: 12px;
+  }
 }
 
 
