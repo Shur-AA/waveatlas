@@ -167,6 +167,11 @@ const map = new Map({
   })
 });
 
+
+
+
+
+
 var coordinate = 0;
 map.on('click', function(evt) {
   coordinate = evt.coordinate;
@@ -176,10 +181,6 @@ map.on('click', function(evt) {
   htbox[0].checked = false;
   render_rose.render_rose(coordinate[1], coordinate[0]);
   render_hist.render_hist(coordinate[1], coordinate[0], 50);
-  var htbox = document.getElementsByClassName("tb-checkbox");
-  htbox[0].checked = false;
-  var htbox = document.getElementsByClassName("tb-checkbox");
-  htbox[0].checked = false;
   htbox[0].addEventListener('change', function(event) {
     if (htbox[0].checked){
       render_hist.render_hist(coordinate[1], coordinate[0], 100);
@@ -188,7 +189,7 @@ map.on('click', function(evt) {
     }
   });
   let coors_var = document.getElementById("coords-display");
-  coors_var.innerHTML = 'Широта: ' + coordinate[1].toFixed(4) + '<br>' + 'Долгота: ' + coordinate[0].toFixed(4);
+  coors_var.innerHTML = 'Широта: ' + coordinate[1].toFixed(2) + '°<br>' + 'Долгота: ' + coordinate[0].toFixed(2) + '°';
 });
 
 
@@ -461,9 +462,7 @@ $("#greater_less4").on('change', e => {
 // ********************SUPPLY TABLE CHANGE END************************
 
 function ready(){
-  console.log('Function ready start');
   function drawMapName(intext){
-      console.log('Function drow map name start')
       const mapname = document.getElementsByClassName('curchoice');
       mapname[0].textContent = intext;
   };
@@ -562,10 +561,12 @@ function ready(){
   tools.tablesInit(1, [1], "legendplace");
   insert_legend(colorbrewer.RdPu, 0, 18, 1);
 
-  const closeBut = document.getElementsByClassName('fa-times-circle');
+  const closeBut = document.getElementsByClassName('fa-window-minimize');
   closeBut[0].addEventListener('click', function(event) {
       let rg = document.getElementsByClassName('rose-graphic');
       rg[0].style.visibility = 'hidden';
+      let rtitle = document.getElementsByClassName('rose-title');
+      rtitle[0].style.visibility = 'hidden';
       let prnt = document.getElementsByClassName('graphics');
       prnt[0].style.justifyContent = 'start';
       prnt[0].style.paddingLeft = '4px';
@@ -573,6 +574,8 @@ function ready(){
   closeBut[1].addEventListener('click', function(event) {
       let fg = document.getElementsByClassName('freq-graphic');
       fg[0].style.visibility = 'hidden';
+      let ftitle = document.getElementsByClassName('freq-title');
+      ftitle[0].style.visibility = 'hidden';
       let prnt = document.getElementsByClassName('graphics');
       prnt[0].style.justifyContent = 'start';
       prnt[0].style.paddingLeft = '4px';
@@ -581,5 +584,33 @@ function ready(){
       let tbl = document.getElementsByClassName('ww-table');
       tbl[0].style.visibility = 'hidden';
   })
-}
+};
 document.addEventListener("DOMContentLoaded", ready);
+
+
+
+const addsf = document.getElementById('freq-graphic');
+addsf.addEventListener('mouseover', function(event){
+  let ftitle = document.getElementsByClassName('freq-title');
+  ftitle[0].style.visibility = 'hidden';
+});
+addsf.addEventListener('mouseout', function(event){
+  let ftitle = document.getElementsByClassName('freq-title');
+  let fg = document.getElementsByClassName('freq-graphic');
+  if (fg[0].style.visibility == 'visible'){
+    ftitle[0].style.visibility = 'visible';
+  };  
+});
+
+const addsr = document.getElementById('rose-graphic');
+addsr.addEventListener('mouseover', function(event){
+  let rtitle = document.getElementsByClassName('rose-title');
+  rtitle[0].style.visibility = 'hidden';
+});
+addsr.addEventListener('mouseout', function(event){
+  let rtitle = document.getElementsByClassName('rose-title');
+  let rg = document.getElementsByClassName('rose-graphic');
+  if (rg[0].style.visibility == 'visible'){
+    rtitle[0].style.visibility = 'visible';
+  };
+});

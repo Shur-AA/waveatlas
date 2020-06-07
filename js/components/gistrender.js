@@ -31,14 +31,14 @@ function wind_hist(wind_data, divId) {
             y: wind_data.year,
             x: wind_data.text,
             type: "histogram",
-            name: "year"
+            name: "год"
         },
         {
             histfunc: "sum",
             y: wind_data.fall,
             x: wind_data.text,
             type: "histogram",
-            name: "fall"
+            name: "осень"
             // text: text
         },
         {
@@ -46,21 +46,21 @@ function wind_hist(wind_data, divId) {
             y: wind_data.spring,
             x: wind_data.text,
             type: "histogram",
-            name: "spring"
+            name: "весна"
         },
         {
             histfunc: "sum",
             y: wind_data.summer,
             x: wind_data.text,
             type: "histogram",
-            name: "summer"
+            name: "лето"
         },
         {
             histfunc: "sum",
             y: wind_data.winter,
             x: wind_data.text,
             type: "histogram",
-            name: "winter",
+            name: "зима",
             // histnorm:'probability density'
         }
     ];
@@ -86,6 +86,8 @@ function render_hist(clicked_lat, clicked_lon, clicked_h){
     var wind_div = 'freq-graphic';
     var div = document.getElementsByClassName("freq-graphic");
     div[0].style.visibility = 'visible';
+    let ftitle = document.getElementsByClassName('freq-title');
+    ftitle[0].style.visibility = 'visible';
     crd = findClosest(clicked_lat, clicked_lon);
     var freqjson = {"lat": crd[0],
                     "lon": crd[1],

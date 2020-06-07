@@ -96,7 +96,8 @@ function ready(){
 
 
 
-    const closeBut = document.getElementsByClassName('fa-times-circle');
+    const closeBut = document.getElementsByClassName('fa-window-minimize');
+    console.log(closeBut);
     closeBut[0].addEventListener('click', function(event) {
         let rg = document.getElementsByClassName('rose-graphic');
         rg[0].style.visibility = 'hidden';

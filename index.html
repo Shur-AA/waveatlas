@@ -124,6 +124,7 @@
                             <i class="fa fa-info graph-info"
                                 uk-tooltip="title:Роза-диаграмма повторяемости направлений ветра; pos: right; offset: 4"></i>
                         </div>
+                        <div class="rose-title">Направления ветра</div>
                     </article>
 
                     <article class="freq-graphic">
@@ -131,7 +132,7 @@
                         <div class="control_butt">
                             <i class="fa fa-window-minimize" uk-tooltip="title:Свернуть график; pos: right; offset: 4"></i>
                             <i class="fa fa-info graph-info"
-                                uk-tooltip="title:Гистограмма повторяемости скоростей ветра; pos: right; offset: 4"></i>
+                                uk-tooltip="title:Гистограмма повторяемости скоростей ветра, м/с; pos: right; offset: 4"></i>
                             <!-- toggle button     -->
                             <div class="tb-row">
                                 <div class="tb-toggle-button-cover">
@@ -147,16 +148,51 @@
                                 </div>
                                 <!-- toggle button  end -->
                             </div>
+                        </div>
+                        <div class="freq-title">Повторяемость скоростей ветра, [% - м/с]</div>
                     </article>
                 </div>
+
                 <article class="ww-table" style="font-size: 13px;">
                     <div class="control_butt">
                         <i class="fa fa-window-minimize" uk-tooltip="title:Свернуть таблицу; pos: right; offset: 4"></i>
                     </div>
                     <table class="uk-table uk-table-responsive">
-                        <caption style="padding-right: 5px;">Параметры волн</caption>
                         <caption id="sea_name" style="color:black; margin-top: 3px; padding-right: 5px;">
                         </caption>
+                        <caption style="padding-right: 5px;">Параметры волн</caption>
+                        <tbody>
+                            <tr>
+                                <td>Высота, [м]</td>
+                                <td id="wave_height" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>Длина, [м]</td>
+                                <td id="wave_lenght" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>Период, [с]</td>
+                                <td id="wave_period" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>Энергия, [кВт/м]</td>
+                                <td id="wave_energy" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>Макс. высота, [м]</td>
+                                <td id="wave_maxh" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                            <tr>
+                                <td>Макс. высота (13%), [м]
+                                    <hr style="margin-top: 3px;" class="uk-divider-small">
+                                </td>
+                                <td id="wave_maxh3p" style="color:black; font-weight: bold;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="uk-table uk-table-responsive">
+                        <caption style="padding-right: 5px;">Параметры ветра</caption>
                         <tfoot>
                             <tr>
                                 <td id="coords-display">Широта:<br>
@@ -168,34 +204,25 @@
                         </tfoot>
                         <tbody>
                             <tr>
-                                <td>ВЫСОТА, [м]</td>
+                                <td>Скорость-50 м [м/с]</td>
                                 <td id="wave_height" style="color:black; font-weight: bold;"></td>
                             </tr>
                             <tr>
-                                <td>ДЛИНА, [м]</td>
+                                <td>Скорость-100 м, [м/с]</td>
                                 <td id="wave_lenght" style="color:black; font-weight: bold;"></td>
                             </tr>
                             <tr>
-                                <td>ПЕРИОД, [с]</td>
-                                <td id="wave_period" style="color:black; font-weight: bold;"></td>
+                                <td>Вал. потенциал-50 м [Вт/кв.м]</td>
+                                <td id="wave_height" style="color:black; font-weight: bold;"></td>
                             </tr>
                             <tr>
-                                <td>ЭНЕРГИЯ, [кВт/м]</td>
-                                <td id="wave_energy" style="color:black; font-weight: bold;"></td>
-                            </tr>
-                            <tr>
-                                <td>МАКС. ВЫСОТА, [м.]</td>
-                                <td id="wave_maxh" style="color:black; font-weight: bold;"></td>
-                            </tr>
-                            <tr>
-                                <td>МАКС. ВЫСОТА (3%), [м]
+                                <td>Вал. потенциал-100 м [Вт/кв.м]
                                     <hr style="margin-top: 3px;" class="uk-divider-small">
                                 </td>
-                                <td id="wave_maxh3p" style="color:black; font-weight: bold;"></td>
+                                <td id="wave_lenght" style="color:black; font-weight: bold;"></td>
                             </tr>
                         </tbody>
                     </table>
-
 
                 </article>
             </section>
@@ -313,8 +340,7 @@
                                     <select id="greater_less1" name="greater_less1"
                                         class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less">
-                                            << /option>
+                                        <option value="less"><</option>
                                     </select>
                                 </td>
                                 <td id="period_input_td">
@@ -330,8 +356,7 @@
                                     <select id="greater_less2" name="greater_less2"
                                         class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less">
-                                            << /option>
+                                        <option value="less"><</option>
                                     </select>
                                 </td>
                                 <td id="energy_input_td">
@@ -347,8 +372,7 @@
                                     <select id="greater_less3" name="greater_less3"
                                         class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less">
-                                            << /option>
+                                        <option value="less"><</option>
                                     </select>
                                 </td>
                                 <td id="len_input_td">
@@ -364,8 +388,7 @@
                                     <select id="greater_less4" name="greater_less4"
                                         class="uk-select uk-form-width-xsmall">
                                         <option value="greater">></option>
-                                        <option value="less">
-                                            << /option>
+                                        <option value="less"><</option>
                                     </select>
                                 </td>
                                 <td id="hsig_input_td">

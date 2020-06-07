@@ -92,7 +92,7 @@
     height: 18vw;
     /* border: solid 1px goldenrod; */
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .control_butt {
@@ -136,16 +136,32 @@
   padding-top: 2px;
 }
 
-.fa-times-circle, .fa-info-circle {
+/* .fa-times-circle, .fa-info-circle {
     color: steelblue;
     font-size: 20px;
+} */
+
+.rose-title{
+  position: absolute;
+  top: 1px;
+  left: 35px;
+  z-index: 2;
+  font-size: 14px;
+}
+
+.freq-title{
+  position: absolute;
+  top: 1px;
+  left: 200px;
+  /* z-index: 2; */
+  font-size: 14px;
 }
 
 .rose-graphic {
     width: 18vw;
     height: 100%;
     box-sizing: border-box;
-    box-shadow: 0 0 12px whitesmoke;
+    box-shadow: 0 0 7px steelblue;
     position: relative;
     margin-right: 20px;
 }
@@ -162,7 +178,7 @@
     width: 40vw;
     height: 100%;
     box-sizing: border-box;
-    box-shadow: 0 0 12px whitesmoke;
+    box-shadow: 0 0 7px steelblue;
     position: relative;
 }
 
@@ -290,8 +306,8 @@
   }
   
   #tb-button-10 .tb-checkbox:checked ~ .tb-layer {
-    background-color: #fcebeb;
-    border: solid 1px #BC8F8F;
+    background-color: #a4d3d3;
+    border: solid 1px rgb(113, 148, 113);
   }
 
 /* -----end toggle button----- */
@@ -302,9 +318,9 @@
     right: 5px;
     bottom: 5px;
     width: 25vw;
-    height: 45vh;
+    /* height: 45vh; */
     box-sizing: border-box;
-    box-shadow: 0 0 12px whitesmoke;
+    box-shadow: 0 0 7px steelblue;
 }
 
 .table_place { 
@@ -318,6 +334,7 @@
     border: solid 1px whitesmoke;
     padding: 5px;
     visibility: hidden;
+    z-index: 20;
 }
 
 .responce_table {
@@ -456,8 +473,8 @@
 
 @media screen and (max-width: 960px){
     .ww-table {
-        height: 74.5vh;
-        width: 20vw;
+        /* height: 74.5vh; */
+        width: 30vw;
         min-width: 186px;
 }
 }

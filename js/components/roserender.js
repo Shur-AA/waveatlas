@@ -112,6 +112,8 @@ function render_rose(clicked_lat, clicked_lon) {
     var rose_div = 'rose-graphic';
     var div = document.getElementsByClassName("rose-graphic");
     div[0].style.visibility = 'visible';
+    let rtitle = document.getElementsByClassName('rose-title');
+    rtitle[0].style.visibility = 'visible';
     crd = findClosest(clicked_lat, clicked_lon);
     var rosejson = {"lat": crd[0],
                    "lon": crd[1],
